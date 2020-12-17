@@ -1,0 +1,46 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+@import "app/layout/theme/variables.scss";
+// NEW
+.image-contain {
+	object-fit: contain !important;
+}
+
+.bg-gradient-primary {
+	background: $bg-gradient-primary;
+}
+
+.flex-table {
+	flex: 1;
+}
+
+// NEW
+
+
+body.theme-default .mat-toolbar {
+	background-color: #fafafa !important;
+}
+
+body.theme-blue-gray-dark {
+    color: #fff;
+    background: #303030;
+}
+
+ngx-dropzone-label {
+	color: #7c7c7c;
+}
+
+.navbar-content {
+	background: #fafafa;
+}
+
+mat-label {
+	color: #686868;
+}
+
+body.theme-default .mat-form-field-appearance-outline .mat-form-field-outline {
+	color: #686868;
+}

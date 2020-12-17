@@ -1,0 +1,82 @@
+<div class="page-layout simple fullwidth docs">
+	<div
+		class="header accent bg-gradient-primary p-24"
+		fxLayout="column"
+		fxLayoutAlign="center start"
+	>
+		<div fxLayout="row" fxLayoutAlign="start center">
+			<mat-icon class="secondary-text s-18">home</mat-icon>
+			<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+			<span class="secondary-text">Cardapio</span>
+			<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+			<span class="secondary-text">Novo Cardapio</span>
+		</div>
+
+		<div class="h2 mt-16">{{menu.name || title}}</div>
+	</div>
+
+	<div class="content p-24">
+		<div fxLayout="row">
+			<mat-form-field floatlabel="always" fxFlex="50">
+				<mat-label>Nome do Cardapio</mat-label>
+				<input
+					matInput
+					id="menuName"
+					name="menuName"
+					[(ngModel)]="menu.name"
+				/>
+			</mat-form-field>
+		</div>
+
+		<div class="my-24 mat-subheading-1">
+			Refeições
+		</div>
+
+		<div *ngFor="let day of days; let iDay = index">
+			<mat-card class="my-12">
+				<div class="row mat-subheading-1">
+					{{day.name}}
+
+					<button
+						mat-icon-button
+						color="primary"
+						matTooltip="Adicionar Refeição"
+						(click)="openAddMealModal(day, iDay)"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</div>
+
+				<div *ngFor="let meal of day.meals; let iMeal = index">
+					<span>
+						<b>- {{meal.name}}:</b>
+						{{meal.descripition}}
+					</span>
+					<button
+						mat-icon-button
+						color="warn"
+						matTooltip="Remover Refeição"
+						(click)="removeMeal(iDay, iMeal)"
+					>
+						<mat-icon>remove_circle</mat-icon>
+					</button>
+				</div>
+			</mat-card>
+		</div>
+
+		<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!days.length">
+			<span class="mat-subheading-2 my-0">- Sem refeições cadastradas -</span>
+			<span class="mat-caption mt-0 mb-32"> (Adicione dias para incluir refeições) </span>
+		</div>
+
+		<div fxLayoutAlign="center center">
+			<button
+				mat-raised-button
+				class="bg-gradient-primary"
+				(click)="addDay()"
+			>
+				Adicionar Dia
+			</button>
+		</div>
+	</div>
+</div>

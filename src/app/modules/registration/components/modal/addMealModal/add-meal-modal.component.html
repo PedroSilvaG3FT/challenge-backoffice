@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Adicionar Refeição</h1>
+
+<div mat-dialog-content>
+	<form #addMealForm="ngForm" (submit)="addMeal()">
+		<div fxLayout="row">
+			<mat-form-field appearance="fill" fxFlex="100">
+				<mat-label>Tipo de refeição</mat-label>
+				<mat-select
+					required
+					id="selectDay"
+					name="selectDay"
+					[(ngModel)]="meal.typeMealId"
+				>
+					<mat-option
+						*ngFor="let typeMeal of typeMealSelect"
+						[value]="typeMeal.id"
+					>
+						{{typeMeal.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div fxLayout="row">
+			<mat-form-field floatlabel="always" fxFlex="100">
+				<mat-label>Descrição</mat-label>
+				<textarea
+					matInput
+					required
+					matTextareaAutosize
+					id="mealDescription"
+					name="mealDescription"
+					[(ngModel)]="meal.descripition"
+				></textarea>
+			</mat-form-field>
+		</div>
+	</form>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-button mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="accent" (click)="addMeal()" [disabled]="addMealForm.form.invalid">
+		Adicionar
+	</button>
+</div>
