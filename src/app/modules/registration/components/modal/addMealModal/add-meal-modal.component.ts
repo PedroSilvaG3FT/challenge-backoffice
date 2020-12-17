@@ -18,7 +18,7 @@ export class AddMealModalComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._validListTypeMeal();
+        // this._validListTypeMeal();
     }
 
     _validListTypeMeal() {
@@ -30,7 +30,6 @@ export class AddMealModalComponent implements OnInit, OnDestroy {
                     this.typeMealSelect.splice(index, 1);
                 }
             });
-
         })
     }
 

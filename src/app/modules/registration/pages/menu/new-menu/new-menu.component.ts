@@ -3,12 +3,11 @@ import { fuseAnimations } from '@fuse/animations';
 import { MenuService } from '../../../services/menu.service';
 import {
     MenuDayInterfaceDTO,
-    MenuInterface,
     MenuInterfaceDTO
 } from '../../../interfaces/menu.interface'
-import { toArray } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { AddMealModalComponent } from 'app/modules/registration/components/modal/addMealModal/add-meal-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-exemple',
@@ -22,22 +21,24 @@ export class NewMenuComponent implements OnInit {
 
     public newDay: number;
     public currtenDayId: number = 1;
+    public currentDayCopy: MenuDayInterfaceDTO;
 
     public menu: MenuInterfaceDTO = {} as MenuInterfaceDTO;
     public days: MenuDayInterfaceDTO[] = [];
 
     constructor(
         private menuService: MenuService,
+        private router: Router,
         public dialog: MatDialog,
     ) { }
 
     ngOnInit(): void { }
 
     addDay() {
-        if(this.currtenDayId === 8) {
+        if (this.currtenDayId === 8) {
             this.currtenDayId = 1;
         }
-        
+
         const newDay: MenuDayInterfaceDTO = {
             dayId: this.currtenDayId,
             name: DayEnum[this.currtenDayId],
@@ -48,19 +49,53 @@ export class NewMenuComponent implements OnInit {
         this.currtenDayId++;
     }
 
+    copyDay(day: MenuDayInterfaceDTO) {
+        this.currentDayCopy = day;
+    }
+
+    pastDay(index) {
+        this.days[index].meals = this.currentDayCopy.meals;
+    }
+
+    removeDay(day: MenuDayInterfaceDTO, index) {
+        console.log("DAY", day);
+        if (day.meals.length) {
+            alert("CHAMA A CONFIRMAÇÃO");
+        } else {
+            this.days.splice(index, 1);
+            this.currtenDayId--;
+        }
+
+    }
+
     openAddMealModal(data, index: number) {
         const dialogRef = this.dialog.open(AddMealModalComponent, { data });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log("Result :", result);
-            if(!result) return;
-            
+            if (!result) return;
+
             this.days[index].meals.push(result);
         });
     }
 
-    removeMeal(indexDay: number, indexMeal:number) {
+    removeMeal(indexDay: number, indexMeal: number) {
         this.days[indexDay].meals.splice(indexMeal, 1);
+    }
+
+    saveMenu() {
+        this.menu.days = this.days;
+        this.menuService
+            .create(this.menu)
+            .subscribe(
+                response => {
+                    console.log("RESPONSE :", response);
+                    this.router.navigate(['registration/menu']);
+                },
+                error => {
+                    console.log("ERROR", error);
+                }
+            )
+        console.log('MENU :', this.menu);
     }
 }
 
