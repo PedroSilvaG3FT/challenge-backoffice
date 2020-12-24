@@ -95,7 +95,6 @@ export class NewMenuComponent implements OnInit {
                     console.log("ERROR", error);
                 }
             )
-        console.log('MENU :', this.menu);
     }
 }
 

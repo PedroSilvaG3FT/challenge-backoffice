@@ -25,7 +25,7 @@ export class MenuService {
         return this.http.put(`${environment.api_url}/menu`, menu);
     }
 
-    remove(id: number) {
-        return this.http.delete(`${environment.api_url}/menu/${id}`);
+    disable(id: number) {
+        return this.http.put(`${environment.api_url}/menu/${id}`, {});
     }
 }

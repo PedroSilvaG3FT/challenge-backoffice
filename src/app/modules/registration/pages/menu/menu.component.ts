@@ -12,7 +12,7 @@ import { MenuInterface } from '../../interfaces/menu.interface'
 export class MenuComponent implements OnInit {
     public title: string = "Cardapios";
 
-    public displayedColumns: string[] = ['id', 'name', 'qtdDays', 'active'];
+    public displayedColumns: string[] = ['id', 'name', 'qtdDays', 'active', 'action'];
     public dataSource: MenuInterface[] = [];
 
     constructor(
@@ -29,8 +29,21 @@ export class MenuComponent implements OnInit {
             .subscribe(
                 response => {
                     this.dataSource = response;
+                    console.log(this.dataSource);
                 },
                 error => {
+                    console.error("GET MENU: ", error);
+                }
+            )
+    }
+
+    disableMenu(id: number): void {
+        this.menuService
+            .disable(id)
+            .subscribe(
+                response => console.log(this.dataSource),
+                error => {
+                    this.getMenus();
                     console.error("GET MENU: ", error);
                 }
             )

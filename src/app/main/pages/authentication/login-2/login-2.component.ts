@@ -49,8 +49,7 @@ export class Login2Component implements OnInit {
     }
 
     doLogin() {
-        console.log("LOGIN")
-        this.router.navigate(['/exemple']);
+        this.router.navigate(['/registration/menu']);
         
         // this.hasError = false;
         // this.hasError = true;
