@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-member',
@@ -10,10 +11,16 @@ export class MemberComponent implements OnInit {
     public displayedColumns: string[] = ['id', 'name', 'initalWeight', 'currentWeight', 'goalWeek', 'active', 'action'];
     public dataSource: any[] = [];
 
-    constructor() { }
+    constructor(
+        private router: Router
+    ) { }
 
     ngOnInit(): void { 
         this.loadMembers();
+    }
+
+    goToDetail(id: number) {
+        this.router.navigate(['member/member-detail', id]);
     }
 
     loadMembers() {

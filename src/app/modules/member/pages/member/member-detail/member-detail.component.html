@@ -1,0 +1,110 @@
+<div class="page-layout simple fullwidth docs">
+  <div
+    class="header accent bg-gradient-primary p-24"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="secondary-text s-18">home</mat-icon>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Membro</span>
+        <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+        <span class="secondary-text">Detalhes Membro</span>
+      </div>
+
+      <div class="h2 mt-16">{{ title }}</div>
+    </div>
+
+    <button mat-raised-button color="accent">Salvar</button>
+  </div>
+
+  <div class="content p-24">
+    <mat-tab-group>
+      <mat-tab label="Dados cadastrais">
+        <span class="mat-subheading-1 my-16">Dados Pessoais</span>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="35">
+            <mat-label>Nome </mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+
+          <mat-form-field floatlabel="always" fxFlex="15" class="ml-8">
+            <mat-label>Idade</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="25">
+            <mat-label>Email </mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+
+          <mat-form-field floatlabel="always" fxFlex="25" class="ml-8">
+            <mat-label>Telefone</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="25">
+            <mat-label>CPF</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="25">
+            <mat-label>Dia do pagamento</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <span class="mat-subheading-1 my-16">Dados Para o Desafio</span>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="20">
+            <mat-label>Peso Inicial</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+
+          <mat-form-field floatlabel="always" fxFlex="20" class="ml-8">
+            <mat-label>Peso Atual</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+
+          <mat-form-field floatlabel="always" fxFlex="10" class="ml-8">
+            <mat-label>Altura</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="25">
+            <mat-label>Meta da Semana</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+
+          <mat-form-field floatlabel="always" fxFlex="25" class="ml-8">
+            <mat-label>Meta Final</mat-label>
+            <input matInput id="menuName" name="menuName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field floatlabel="always" fxFlex="50">
+            <mat-label>Observações</mat-label>
+            <textarea matInput matAutosizeMinRows="3"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Cardapio">
+		  <app-menu-member [userId]="userId"></app-menu-member>
+	  </mat-tab>
+      <mat-tab label="Exercicios"></mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
