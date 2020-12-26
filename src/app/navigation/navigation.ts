@@ -8,23 +8,6 @@ export const navigation: FuseNavigation[] = [
     type: 'group',
     icon: 'add_shopping_cart',
     children: [
-      // {
-      //   id: 'exemple',
-      //   title: 'Exemple',
-      //   translate: 'NAV.ECOMMERCE',
-      //   type: 'collapsable',
-      //   icon: 'shopping_cart',
-      //   children: [
-      //     {
-      //       id: 'exempleC',
-      //       title: 'Exemple Item',
-      //       type: 'item',
-      //       icon: 'collections',
-      //       url: '/exemple',
-      //     },
-      //   ],
-      // },
-
       {
         id: 'registration',
         title: 'Cadastros',
@@ -39,17 +22,31 @@ export const navigation: FuseNavigation[] = [
             icon: 'restaurant',
             url: 'registration/menu',
           },
-
+        ],
+      },
+      {
+        id: 'member',
+        title: 'Membros',
+        translate: 'NAV.ECOMMERCE',
+        type: 'collapsable',
+        icon: 'group',
+        children: [
           {
-            id: 'stepRegister',
-            title: 'Fases',
+            id: 'members',
+            title: 'Todos',
             type: 'item',
-            icon: 'trending_up',
-            url: 'registration/menu',
+            icon: 'list',
+            url: 'member/list',
+          },
+          {
+            id: 'members',
+            title: 'Novos Membros',
+            type: 'item',
+            icon: 'group_add',
+            url: 'member/member-aproval',
           },
         ],
       },
-      
 
     ],
   },

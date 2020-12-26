@@ -1,0 +1,27 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'app-member',
+    templateUrl: './member.component.html',
+})
+export class MemberComponent implements OnInit {
+    public title: string = "Membros";
+
+    public displayedColumns: string[] = ['id', 'name', 'initalWeight', 'currentWeight', 'goalWeek', 'active', 'action'];
+    public dataSource: any[] = [];
+
+    constructor() { }
+
+    ngOnInit(): void { 
+        this.loadMembers();
+    }
+
+    loadMembers() {
+        this.dataSource = [
+            {id: 1, name: "Pedro Silva",initalWeight: 87, currentWeight: 75, goalWeek: 75, active: 1 },
+            {id: 2, name: "Carina Dechamps",initalWeight: 97, currentWeight: 90, goalWeek: 88, active: 1 },
+            {id: 3, name: "Eliudo Junior",initalWeight: 107, currentWeight: 100, goalWeek: 98, active: 1 },
+            {id: 4, name: "Maria Neuma",initalWeight: 90, currentWeight: 88, goalWeek: 75, active: 1 },
+        ];
+    }
+}

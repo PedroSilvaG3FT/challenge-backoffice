@@ -32,6 +32,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('./modules/registration/registrations.module').then(m => m.RegistrationModule),
   },
   {
+    path: 'member',
+    loadChildren: () => import('./modules/member/member.module').then(m => m.MemberModule),
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
   },
