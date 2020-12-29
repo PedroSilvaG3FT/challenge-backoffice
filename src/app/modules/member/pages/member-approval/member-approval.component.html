@@ -28,17 +28,23 @@
 							</td>
 						</ng-container>
 
-						<ng-container matColumnDef="initalWeight">
-							<th mat-header-cell *matHeaderCellDef>Peso Inicial</th>
+						<ng-container matColumnDef="startingWeight">
+							<th mat-header-cell *matHeaderCellDef>
+								Peso Inicial
+							</th>
 							<td mat-cell *matCellDef="let element">
-								{{element.initalWeight}}
+								{{element.startingWeight}}
 							</td>
-                        </ng-container>
+						</ng-container>
 
 						<ng-container matColumnDef="action">
 							<th mat-header-cell *matHeaderCellDef>Ação</th>
 							<td mat-cell *matCellDef="let element">
-								<button mat-icon-button class="green-500-fg">
+								<button
+									mat-icon-button
+									class="green-500-fg"
+									(click)="approveMember(element)"
+								>
 									<mat-icon>check_circle_outline</mat-icon>
 								</button>
 							</td>

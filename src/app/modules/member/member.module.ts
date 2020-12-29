@@ -7,11 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components';
 
-import { MenuUserService } from './services/menu-user.service';
 import { MemberComponent } from './pages/member/member.component';
 import { MemberDetailComponent } from './pages/member/member-detail/member-detail.component';
 import { MemberApprovalComponent } from './pages/member-approval/member-approval.component';
 import { MenuMemberComponent } from './pages/member/member-detail/menu-member/menu-member.component';
+
+import { MenuUserService } from './services/menu-user.service';
+import { UserService } from './services/user.service';
 @NgModule({
     declarations: [
         MemberComponent,
@@ -28,6 +30,9 @@ import { MenuMemberComponent } from './pages/member/member-detail/menu-member/me
         FuseWidgetModule,
     ],
     exports: [MemberRoutingModule],
-    providers: [MenuUserService],
+    providers: [
+        MenuUserService,
+        UserService
+    ],
 })
 export class MemberModule {}
