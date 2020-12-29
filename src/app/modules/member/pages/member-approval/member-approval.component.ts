@@ -32,6 +32,7 @@ export class MemberApprovalComponent implements OnInit {
 
     approveMember(member) {
         member.active = true;
+        
         this.userService
             .update(member)
             .subscribe(

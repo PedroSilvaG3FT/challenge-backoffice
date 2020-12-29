@@ -27,38 +27,38 @@
         <div fxLayout="row">
           <mat-form-field floatlabel="always" fxFlex="35">
             <mat-label>Nome </mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="name" name="name" [(ngModel)]="member.name" disabled/>
           </mat-form-field>
 
           <mat-form-field floatlabel="always" fxFlex="15" class="ml-8">
             <mat-label>Idade</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="age" name="age" disabled/>
           </mat-form-field>
         </div>
 
         <div fxLayout="row">
           <mat-form-field floatlabel="always" fxFlex="25">
             <mat-label>Email </mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="email" name="email" [(ngModel)]="member.email" disabled/>
           </mat-form-field>
 
           <mat-form-field floatlabel="always" fxFlex="25" class="ml-8">
             <mat-label>Telefone</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="phone" name="phone" [(ngModel)]="member.email" disabled/>
           </mat-form-field>
         </div>
 
         <div fxLayout="row">
           <mat-form-field floatlabel="always" fxFlex="25">
             <mat-label>CPF</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="cpf" name="cpf" [(ngModel)]="member.email" disabled/>
           </mat-form-field>
         </div>
 
         <div fxLayout="row">
           <mat-form-field floatlabel="always" fxFlex="25">
             <mat-label>Dia do pagamento</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="payday" name="payday" [(ngModel)]="member.payday"/>
           </mat-form-field>
         </div>
 
@@ -67,7 +67,7 @@
         <div fxLayout="row">
           <mat-form-field floatlabel="always" fxFlex="20">
             <mat-label>Peso Inicial</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="startingWeight" name="startingWeight" [(ngModel)]="member.startingWeight"/>
           </mat-form-field>
 
           <mat-form-field floatlabel="always" fxFlex="20" class="ml-8">
@@ -77,7 +77,7 @@
 
           <mat-form-field floatlabel="always" fxFlex="10" class="ml-8">
             <mat-label>Altura</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="height" name="height" [(ngModel)]="member.height"/>
           </mat-form-field>
         </div>
 
@@ -89,7 +89,7 @@
 
           <mat-form-field floatlabel="always" fxFlex="25" class="ml-8">
             <mat-label>Meta Final</mat-label>
-            <input matInput id="menuName" name="menuName" />
+            <input matInput id="goalWeight" name="goalWeight" [(ngModel)]="member.goalWeight"/>
           </mat-form-field>
         </div>
 
