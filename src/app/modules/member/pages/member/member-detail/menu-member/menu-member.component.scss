@@ -1,0 +1,34 @@
+.card-meal-custom {
+	background: #303030 !important;
+	padding: 0px !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    flex-direction: column;
+    max-width: 100px;
+
+	.header-card-meal {
+		padding: 10px 10px;
+
+		h4,
+		h5 {
+            // padding: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: 0px;
+			text-align: center;
+		}
+	}
+
+	.image-container {
+		flex: 1;
+
+		img {
+			object-fit: contain;
+		}
+	}
+
+	.footer-card-meal {
+		padding: 10px 0px;
+	}
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MemberInterface } from 'app/modules/member/interfaces/member.interface';
 import { UserService } from 'app/modules/member/services/user.service';
 
@@ -9,21 +9,19 @@ import { UserService } from 'app/modules/member/services/user.service';
 })
 export class MemberDetailComponent implements OnInit {
     public title: string = "Detalhes Membro";
-
     public displayedColumns: string[] = ['id', 'name', 'initalWeight', 'currentWeight', 'goalWeek', 'active', 'action'];
-    public dataSource: any[] = [];
 
     public userId: number;
     public member: MemberInterface = {} as MemberInterface;
 
     constructor(
+        private router: Router,
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
     ) { }
 
     ngOnInit(): void { 
         this.userId = this.activatedRoute.snapshot.params.id;
-        console.log("USER ID :", this.userId);
         this._getUser();
     }
 
@@ -39,6 +37,18 @@ export class MemberDetailComponent implements OnInit {
                 error => {
                     console.log("Error :", error);
                 }
+            )
+    }
+
+    saveUser() {
+        this.userService
+            .update(this.member)
+            .subscribe(
+                response => {
+                    alert("Atualizado com Sucesso");
+                    this.router.navigate(['member/list'])
+                },
+                error => alert("Erro ao atualizar")
             )
     }
 }

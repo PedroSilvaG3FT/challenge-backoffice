@@ -13,4 +13,8 @@ export class MenuUserService {
     getByUserId(id: number) {
         return this.http.get<any>(`${environment.api_url}/menuUser/${id}`)
     }
+
+    create(data: { menuId: number, userId: number }) {
+        return this.http.post(`${environment.api_url}/menuUser`, data);
+    }
 }

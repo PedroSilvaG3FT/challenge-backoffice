@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 export class MemberComponent implements OnInit {
     public title: string = "Membros";
 
-    public displayedColumns: string[] = ['id', 'name', 'startingWeight', 'currentWeight', 'goalWeek', 'active', 'action'];
+    public displayedColumns: string[] = ['id', 'name', 'startingWeight', 'currentWeight', 'goalWeek', 'goalWeight', 'active', 'action'];
     public dataSource: any[] = [];
 
     constructor(

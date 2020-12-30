@@ -1,58 +1,77 @@
 <div class="content p-24">
-  <div fxLayout="row">
-    <mat-form-field floatlabel="always" fxFlex="50">
-      <mat-label>Nome do Cardapio</mat-label>
-      <input matInput id="menuName" name="menuName" [(ngModel)]="menu.name" />
-    </mat-form-field>
-  </div>
+	<div fxLayout="row">
+		<button
+			mat-raised-button
+			color="accent"
+			(click)="openAssignMenuModal()"
+		>
+			Atribuir Novo Cardapio
+		</button>
+	</div>
 
-  <div class="my-24 mat-subheading-1">Refeições</div>
+	<div fxLayout="row" *ngIf="days">
+		<mat-form-field floatlabel="always" fxFlex="50">
+			<mat-label>Nome do Cardapio</mat-label>
+			<input
+				matInput
+				disabled
+				id="menuName"
+				name="menuName"
+				[(ngModel)]="menu.name"
+			/>
+		</mat-form-field>
+	</div>
 
-  <div *ngFor="let day of days; let iDay = index">
-    <mat-card class="my-12">
-      <div
-        class="row mat-subheading-1"
-        fxLayout="flex"
-        fxLayoutAlign="space-between center"
-      >
-        <div>
-          {{ day.name}}
-        </div>
-      </div>
+	<div class="my-24 mat-subheading-1" *ngIf="days">Refeições</div>
 
-      <div
-        fxLayout="row"
-        fxFlex.gt-sm="25"
-        fxFlex="50"
-        *ngFor="let meal of day.meals; let iMeal = index"
-      >
-        <mat-card class="mx-12">
-          <mat-card-header>
-            <mat-card-title>{{meal.descripition}}</mat-card-title>
-            <mat-card-subtitle>{{meal.typeMealName}}</mat-card-subtitle>
-          </mat-card-header>
+	<div *ngFor="let day of days; let iDay = index">
+		<mat-card class="my-12">
+			<mat-card-header>
+				<mat-card-title>{{ day.dayName}}</mat-card-title>
+				<mat-card-subtitle>
+					{{"Dia " + day.numberDay}}
+				</mat-card-subtitle>
+			</mat-card-header>
 
-          <img
-            mat-card-image
-            src="https://img.itdg.com.br/tdg/images/blog/uploads/2016/11/shutterstock_251690740.jpg"
-            alt="Photo of a Shiba Inu"
-          />
+			<mat-card-content>
+				<div
+					fxLayout="row"
+					fxFlex.gt-sm="25"
+					fxFlex="100"
+					*ngFor="let meal of day.meals; let iMeal = index"
+				>
+					<mat-card class="mx-12 card-meal-custom">
+						<div class="header-card-meal">
+							<h4>{{meal.typeMealName}}</h4>
+							<h5>{{meal.descripition}}</h5>
+						</div>
 
-          <mat-card-actions fxLayout="flex" fxLayoutAlign="center center">
-            <mat-button-toggle-group #group="matButtonToggleGroup">
-                <mat-button-toggle value="1">
-                  <mat-icon>mood_bad</mat-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="2">
-                  <mat-icon>check</mat-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="3">
-                  <mat-icon>mood</mat-icon>
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </mat-card>
-  </div>
+						<div class="image-container">
+							<img
+								src="https://img.itdg.com.br/tdg/images/blog/uploads/2016/11/shutterstock_251690740.jpg"
+								alt="Photo of a Shiba Inu"
+							/>
+						</div>
+
+						<div class="footer-card-meal"
+							fxLayout="flex"
+							fxLayoutAlign="center center"
+						>
+							<mat-button-toggle-group #group="matButtonToggleGroup" value="2">
+								<mat-button-toggle value="1">
+									<mat-icon>mood_bad</mat-icon>
+								</mat-button-toggle>
+								<mat-button-toggle value="2">
+									<mat-icon>check</mat-icon>
+								</mat-button-toggle>
+								<mat-button-toggle value="3">
+									<mat-icon>mood</mat-icon>
+								</mat-button-toggle>
+							</mat-button-toggle-group>
+						</div>
+					</mat-card>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
 </div>

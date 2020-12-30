@@ -3,12 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MenuUserService } from 'app/modules/member/services/menu-user.service';
 import { MenuDayInterfaceDTO, MenuInterfaceDTO } from 'app/modules/registration/interfaces/menu.interface';
-import { MenuService } from 'app/modules/registration/services/menu.service';
+import { AssingMenuModalComponent } from 'app/shared/components/assing-menu-modal/assing-menu-modal.component';
 
 @Component({
     selector: 'app-menu-member',
     templateUrl: './menu-member.component.html',
+    styleUrls: ['./menu-member.component.scss']
 })
+
 export class MenuMemberComponent implements OnInit {
     @Input() userId: number;
 
@@ -21,7 +23,6 @@ export class MenuMemberComponent implements OnInit {
 
     constructor(
         private menuUserService: MenuUserService,
-        private router: Router,
         public dialog: MatDialog,
     ) { }
 
@@ -42,4 +43,32 @@ export class MenuMemberComponent implements OnInit {
                 }
             )
     }
+
+    openAssignMenuModal(): void {
+        const dialogRef = this.dialog.open(AssingMenuModalComponent, {
+            width: "70%"
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (!result) return;
+            this.assignMenu(result);
+        });
+    }
+
+    assignMenu(menuId: number): void {
+        const assignMenuDTO = {
+            userId: this.userId,
+            menuId: menuId,
+        };
+
+        this.menuUserService
+            .create(assignMenuDTO)
+            .subscribe(
+                response => {
+                    this.getMenuUser();
+                },
+                error => console.log("ERROR", error)
+            )
+    }
+    
 }

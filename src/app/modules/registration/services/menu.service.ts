@@ -28,4 +28,8 @@ export class MenuService {
     disable(id: number) {
         return this.http.put(`${environment.api_url}/menu/${id}`, {});
     }
+
+    delete(id: number) {
+        return this.http.delete(`${environment.api_url}/menu/${id}`);
+    }
 }

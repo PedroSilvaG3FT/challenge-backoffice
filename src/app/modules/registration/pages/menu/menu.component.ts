@@ -48,4 +48,16 @@ export class MenuComponent implements OnInit {
                 }
             )
     }
+
+    deleteMenu(id: number): void {
+        this.menuService
+            .delete(id)
+            .subscribe(
+                response => {
+                    console.log("RESPONSE :", response);
+                    this.getMenus();
+                },
+                error => console.log("ERROR :", error)
+            )
+    }
 }
