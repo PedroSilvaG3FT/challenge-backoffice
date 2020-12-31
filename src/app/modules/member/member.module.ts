@@ -6,6 +6,7 @@ import { AngularMaterialModule } from 'app/shared/angular-material/angular-mater
 import { HttpClientModule } from '@angular/common/http';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components';
+import { AngularEditorModule } from '@kolkov/angular-editor'
 
 import { MemberComponent } from './pages/member/member.component';
 import { MemberDetailComponent } from './pages/member/member-detail/member-detail.component';
@@ -28,6 +29,7 @@ import { UserService } from './services/user.service';
         HttpClientModule,
         FuseSharedModule,
         FuseWidgetModule,
+        AngularEditorModule
     ],
     exports: [MemberRoutingModule],
     providers: [

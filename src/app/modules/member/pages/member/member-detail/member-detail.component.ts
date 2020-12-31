@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberInterface } from 'app/modules/member/interfaces/member.interface';
 import { UserService } from 'app/modules/member/services/user.service';
+import { AngularEditorConfigShared } from 'app/shared/config/angular-editor/angular-editor-config';
 
 @Component({
     selector: 'app-member-detail',
@@ -13,7 +14,10 @@ export class MemberDetailComponent implements OnInit {
 
     public userId: number;
     public member: MemberInterface = {} as MemberInterface;
-
+    
+    public angularEditorConfigShared = new AngularEditorConfigShared();
+    public configEditor = this.angularEditorConfigShared.default();
+    
     constructor(
         private router: Router,
         private userService: UserService,
