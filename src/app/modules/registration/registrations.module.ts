@@ -9,17 +9,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from 'app/shared/angular-material/angular-materal.module';
 
 import { MenuService } from './services/menu.service';
+import { ExerciceService } from './services/exercice.service';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { NewMenuComponent } from './pages/menu/new-menu/new-menu.component';
+
+import { ExerciceComponent } from './pages/exercice/exercice.component';
+import { NewExerciceComponent } from './pages/exercice//new-exercice/new-exercice.component';
+
 import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-modal.component'
+
 @NgModule({
   declarations: [
     MenuComponent,
     NewMenuComponent,
-    AddMealModalComponent
+    ExerciceComponent,
+    NewExerciceComponent,
+    AddMealModalComponent,
   ],
-  providers: [MenuService],
+  providers: [
+    MenuService,
+    ExerciceService
+  ],
   imports: [
     RegistrationRoutingModule,
     AngularMaterialModule,
@@ -31,6 +42,8 @@ import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-
       apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8',
     }),
   ],
-  exports: [RegistrationRoutingModule]
+  exports: [
+    RegistrationRoutingModule, 
+  ]
 })
 export class RegistrationModule { }

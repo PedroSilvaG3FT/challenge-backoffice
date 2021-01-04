@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="content p-24">
-		<mat-tab-group [selectedIndex]="2">
+		<mat-tab-group [selectedIndex]="0">
 			<mat-tab label="Dados cadastrais">
 				<div class="content p-24">
 					<span class="mat-subheading-1 my-16">Dados Pessoais</span>
@@ -185,9 +185,7 @@
 				<app-menu-member [userId]="userId"></app-menu-member>
 			</mat-tab>
 			<mat-tab label="Exercicios">
-				<div class="content p-24">
-					<angular-editor id="ex" name="ex" [config]="configEditor"></angular-editor>
-				</div>
+				<app-exercise-member [userId]="userId"></app-exercise-member>
 			</mat-tab>
 		</mat-tab-group>
 	</div>

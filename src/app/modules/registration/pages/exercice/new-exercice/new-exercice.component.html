@@ -1,0 +1,38 @@
+<div class="page-layout simple fullwidth docs">
+	<div
+		class="header accent bg-gradient-primary p-24"
+		fxLayout="row"
+		fxLayoutAlign="space-between center"
+	>
+		<div>
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<mat-icon class="secondary-text s-18">home</mat-icon>
+				<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+				<span class="secondary-text">Exercício</span>
+				<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+				<span class="secondary-text">Novo Exercício</span>
+			</div>
+
+			<div class="h2 mt-16">{{title}}</div>
+		</div>
+
+		<button mat-raised-button color="accent" (click)="save()">
+			<mat-icon>add</mat-icon>
+			Salvar
+		</button>
+	</div>
+
+	<div class="content p-24">
+		<div fxLayout="row" fxLayoutAlign=" center">
+			<mat-form-field floatlabel="always" fxFlex="50" class="mr-16">
+				<mat-label>Nome do Exercício</mat-label>
+				<input
+					matInput
+					id="menuName"
+					name="menuName"
+					[(ngModel)]="exercice.name"
+				/>
+            </mat-form-field>
+		</div>
+	</div>
+</div>

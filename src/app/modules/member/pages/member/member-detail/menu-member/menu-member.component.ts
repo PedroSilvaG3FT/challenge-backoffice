@@ -36,7 +36,6 @@ export class MenuMemberComponent implements OnInit {
             .subscribe(
                 response => {
                     this.days = response.days;
-                    console.log("MENU USER :", response);
                 },
                 error => {
                     console.error("ERRO AO BUSCAR MENU USER", error);
@@ -67,7 +66,7 @@ export class MenuMemberComponent implements OnInit {
                 response => {
                     this.getMenuUser();
                 },
-                error => console.log("ERROR", error)
+                error => console.error("ERROR", error)
             )
     }
     

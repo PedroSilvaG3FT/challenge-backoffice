@@ -9,7 +9,7 @@ import { AngularMaterialModule } from './angular-material/angular-materal.module
 import { MenuSharedService } from './services/menu-shared.service';
 
 import { AssingMenuModalComponent } from './components/assing-menu-modal/assing-menu-modal.component';
-
+import { ExerciceSelectComponent } from './components/selects/exercice-select/exercice-select.component';
 @NgModule({
     imports: [
         AngularMaterialModule,
@@ -21,8 +21,14 @@ import { AssingMenuModalComponent } from './components/assing-menu-modal/assing-
             apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8',
         }),
     ],
-    exports: [AssingMenuModalComponent],
-    declarations: [AssingMenuModalComponent],
+    exports: [
+        AssingMenuModalComponent,
+        ExerciceSelectComponent
+    ],
+    declarations: [
+        AssingMenuModalComponent,
+        ExerciceSelectComponent
+    ],
     providers: [
         MenuSharedService
     ],

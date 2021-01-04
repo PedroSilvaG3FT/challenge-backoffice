@@ -22,6 +22,13 @@ export const navigation: FuseNavigation[] = [
             icon: 'restaurant',
             url: 'registration/menu',
           },
+          {
+            id: 'exerciceRegister',
+            title: 'Exercício',
+            type: 'item',
+            icon: 'directions_run',
+            url: 'registration/exercice',
+          },
         ],
       },
       {

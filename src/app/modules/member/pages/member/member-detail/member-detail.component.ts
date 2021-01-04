@@ -30,16 +30,14 @@ export class MemberDetailComponent implements OnInit {
     }
 
     _getUser() {
-        console.log("OPA")
         this.userService
             .getById(this.userId)
             .subscribe(
                 response => {
                     this.member = response;
-                    console.log("RESPONSE :", response);
                 },
                 error => {
-                    console.log("Error :", error);
+                    console.error("Error :", error);
                 }
             )
     }

@@ -1,0 +1,44 @@
+<mat-form-field class="example-full-width" style="width: 100%;">
+	<input
+		matInput
+		#inputRef
+		type="text"
+		aria-label="Number"
+		placeholder="Exercício"
+		name="autoCompleteExercice"
+		[matAutocomplete]="qtdResult ? auto : noResult"
+	/>
+
+	<mat-autocomplete
+		autoActiveFirstOption
+		#auto="matAutocomplete"
+		(optionSelected)="onChange($event)"
+	>
+		<span class="mat-caption px-12" *ngIf="filterValue">
+			{{qtdResult ? 'Sem' : null}} Resultados para "{{filterValue}}"
+		</span>
+
+		<mat-option
+			*ngFor="let option of options"
+			[value]="option.id"
+		>
+			{{option.name}}
+		</mat-option>
+
+		<div FxLayout="row" fxLayoutAlign="center center">
+			<button
+				mat-button
+				class="p-12 accent-fg"
+				*ngIf="!qtdResult"
+				(click)="registerExercice()"
+			>
+				Cadastrar "{{filterValue}}"
+				<mat-icon>add</mat-icon>
+			</button>
+		</div>
+	</mat-autocomplete>
+
+	<mat-autocomplete #noResult="matAutocomplete">
+
+	</mat-autocomplete>
+</mat-form-field>

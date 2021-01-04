@@ -1,0 +1,129 @@
+<div class="content p-24">
+	<div fxLayout="row" fxLayoutAlign="space-between center">
+		<div>
+			<button
+				mat-raised-button
+				(click)="clearExercices()"
+				matTooltip="Limpar Exercicios"
+				class="mr-8"
+			>
+				<mat-icon>delete</mat-icon>
+			</button>
+
+			<button
+				mat-raised-button
+				(click)="getExercicesMember()"
+				matTooltip="Resetar Alterações"
+			>
+				<mat-icon>refresh</mat-icon>
+			</button>
+		</div>
+
+		<button
+			mat-raised-button
+			color="accent"
+			(click)="saveExercices()"
+			[disabled]="!days.length"
+		>
+			Salvar Exercicios
+		</button>
+	</div>
+
+	<div *ngFor="let day of days; let iDay = index">
+		<mat-card class="my-12">
+			<div
+				class="row mat-subheading-1"
+				fxLayout="flex"
+				fxLayoutAlign="space-between center"
+			>
+				<div>
+					{{day.name}}
+
+					<button
+						mat-icon-button
+						color="primary"
+						matTooltip="Adicionar Exercício"
+						(click)="addExercice(day, iDay)"
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+				</div>
+
+				<button
+					mat-icon-button
+					color="primary"
+					matTooltip="Remover Dia"
+					(click)="removeDay(iDay)"
+					*ngIf="iDay === (days.length - 1)"
+				>
+					<mat-icon>close</mat-icon>
+				</button>
+			</div>
+
+			<div
+				*ngIf="!day.exercices.length"
+				fxLayout="row"
+				fxLayoutAlign="center center"
+			>
+				<span class="mat-caption">
+					- Sem exercicios cadastrados para {{day.name}} -
+				</span>
+			</div>
+
+			<div *ngFor="let exercice of day.exercices; let iExercice = index">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<app-exercice-select
+						[value]="exercice?.exercice?.name"
+						(changedValue)="onChangeExercice($event, iDay, iExercice)"
+						fxFlex="50"
+					>
+					</app-exercice-select>
+
+					<mat-form-field
+						floatlabel="always"
+						fxFlex="15"
+						class="ml-8"
+					>
+						<mat-label>Quantidade</mat-label>
+						<input
+							matInput
+							id="amount"
+							name="amount"
+							type="number"
+							(ngModelChange)="onChangeAmount($event, iDay, iExercice)"
+							[ngModel]="exercice.amount"
+						/>
+					</mat-form-field>
+
+					<button
+						mat-icon-button
+						color="warn"
+						matTooltip="Remover Exercício"
+						(click)="removeExercice(iDay, iExercice)"
+					>
+						<mat-icon>delete</mat-icon>
+					</button>
+				</div>
+			</div>
+		</mat-card>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!days.length">
+		<span class="mat-subheading-2 my-0"
+			>- Sem Exercicios cadastrados -</span
+		>
+		<span class="mat-caption mt-0 mb-32">
+			(Adicione dias para incluir exercicios)
+		</span>
+	</div>
+
+	<div fxLayoutAlign="center center">
+		<button
+			mat-raised-button
+			class="bg-gradient-primary"
+			(click)="addDay()"
+		>
+			Adicionar Dia
+		</button>
+	</div>
+</div>
