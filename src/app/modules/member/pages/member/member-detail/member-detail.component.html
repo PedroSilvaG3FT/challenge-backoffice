@@ -129,7 +129,12 @@
 							class="ml-8"
 						>
 							<mat-label>Peso Atual</mat-label>
-							<input matInput id="menuName" name="menuName" />
+							<input
+								matInput
+								id="currentWeight"
+								name="currentWeight"
+								[(ngModel)]="member.currentWeight"
+							/>
 						</mat-form-field>
 
 						<mat-form-field
@@ -150,7 +155,12 @@
 					<div fxLayout="row">
 						<mat-form-field floatlabel="always" fxFlex="25">
 							<mat-label>Meta da Semana</mat-label>
-							<input matInput id="menuName" name="menuName" />
+							<input
+								matInput
+								id="goalWeek"
+								name="goalWeek"
+								[(ngModel)]="member.goalWeek"
+							/>
 						</mat-form-field>
 
 						<mat-form-field

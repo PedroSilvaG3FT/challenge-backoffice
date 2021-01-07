@@ -43,6 +43,8 @@ export class MemberDetailComponent implements OnInit {
     }
 
     saveUser() {
+        this.member.goalWeek = Number(this.member.goalWeek);
+        
         this.userService
             .update(this.member)
             .subscribe(
