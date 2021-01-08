@@ -21,6 +21,7 @@ import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { ExempleModule } from './modules/exemple/exemple.module';
 import { SharedModule } from 'app/shared/shared.module';
+import { AuthGuard } from 'app/shared/guards/auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -29,10 +30,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'registration',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/registration/registrations.module').then(m => m.RegistrationModule),
   },
   {
     path: 'member',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/member/member.module').then(m => m.MemberModule),
   },
   {

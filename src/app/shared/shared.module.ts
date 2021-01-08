@@ -7,6 +7,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { AngularMaterialModule } from './angular-material/angular-materal.module';
 
 import { MenuSharedService } from './services/menu-shared.service';
+import { AuthService } from './services/auth.service';
 
 import { AssingMenuModalComponent } from './components/assing-menu-modal/assing-menu-modal.component';
 import { ExerciceSelectComponent } from './components/selects/exercice-select/exercice-select.component';
@@ -30,7 +31,8 @@ import { ExerciceSelectComponent } from './components/selects/exercice-select/ex
         ExerciceSelectComponent
     ],
     providers: [
-        MenuSharedService
+        MenuSharedService,
+        AuthService
     ],
 })
 export class SharedModule { }
