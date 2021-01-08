@@ -5,6 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 
 import { Router } from '@angular/router';
+import { AuthService } from 'app/shared/services/auth.service';
 
 @Component({
     selector: 'login-2',
@@ -15,13 +16,14 @@ import { Router } from '@angular/router';
 })
 
 export class Login2Component implements OnInit {
-    loginForm: FormGroup;
-    hasError: boolean = false;
+    public loginForm: FormGroup;
+    public hasError: boolean = false;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private router: Router,
+        private authService: AuthService
     ) {
         this._fuseConfigService.config = {
             layout: {
@@ -49,7 +51,22 @@ export class Login2Component implements OnInit {
     }
 
     doLogin() {
-        this.router.navigate(['/registration/menu']);
+        this.authService
+            .singIn(this.loginForm.value)
+            .subscribe(
+                response => {
+                    const session: any = response;
+                    localStorage.setItem("@CLAuth:token", JSON.stringify(session.token));
+                    localStorage.setItem("@CLAuth:user", JSON.stringify(session.user));
+                    
+                    this.router.navigate(['/registration/menu']);
+                    console.log("RESPONSE :", response)
+                },
+                error => {
+                    console.log("ERROR :", error.error.message)
+                }
+            )
+
         
         // this.hasError = false;
         // this.hasError = true;

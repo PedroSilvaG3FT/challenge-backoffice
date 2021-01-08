@@ -8,98 +8,84 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { Router } from '@angular/router';
 
 @Component({
-    selector     : 'toolbar',
-    templateUrl  : './toolbar.component.html',
-    styleUrls    : ['./toolbar.component.scss'],
+    selector: 'toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
-export class ToolbarComponent implements OnInit, OnDestroy
-{
-    horizontalNavbar: boolean;
-    rightNavbar: boolean;
-    hiddenNavbar: boolean;
-    languages: any;
-    navigation: any;
-    selectedLanguage: any;
-    userStatusOptions: any[];
+export class ToolbarComponent implements OnInit, OnDestroy {
+    public horizontalNavbar: boolean;
+    public rightNavbar: boolean;
+    public hiddenNavbar: boolean;
+    public languages: any;
+    public navigation: any;
+    public selectedLanguage: any;
+    public userStatusOptions: any[];
 
-    // Private
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FuseSidebarService} _fuseSidebarService
-     * @param {TranslateService} _translateService
-     */
+    public user: any;
+
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
-        private _translateService: TranslateService
-    )
-    {
+        private _translateService: TranslateService,
+        private router: Router,
+    ) {
         // Set the defaults
         this.userStatusOptions = [
             {
                 title: 'Online',
-                icon : 'icon-checkbox-marked-circle',
+                icon: 'icon-checkbox-marked-circle',
                 color: '#4CAF50'
             },
             {
                 title: 'Away',
-                icon : 'icon-clock',
+                icon: 'icon-clock',
                 color: '#FFC107'
             },
             {
                 title: 'Do not Disturb',
-                icon : 'icon-minus-circle',
+                icon: 'icon-minus-circle',
                 color: '#F44336'
             },
             {
                 title: 'Invisible',
-                icon : 'icon-checkbox-blank-circle-outline',
+                icon: 'icon-checkbox-blank-circle-outline',
                 color: '#BDBDBD'
             },
             {
                 title: 'Offline',
-                icon : 'icon-checkbox-blank-circle-outline',
+                icon: 'icon-checkbox-blank-circle-outline',
                 color: '#616161'
             }
         ];
 
         this.languages = [
             {
-                id   : 'en',
+                id: 'en',
                 title: 'English',
-                flag : 'us'
+                flag: 'us'
             },
             {
-                id   : 'tr',
+                id: 'tr',
                 title: 'Turkish',
-                flag : 'tr'
+                flag: 'tr'
             }
         ];
 
         this.navigation = navigation;
 
-        // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        // Subscribe to the config changes
+    ngOnInit(): void {
+        this._getUser();
+        
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((settings) => {
@@ -108,56 +94,36 @@ export class ToolbarComponent implements OnInit, OnDestroy
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
             });
 
-        // Set the selected language from default languages
-        this.selectedLanguage = _.find(this.languages, {id: this._translateService.currentLang});
+        this.selectedLanguage = _.find(this.languages, { id: this._translateService.currentLang });
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
+    ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    _getUser() {
+        const userLocalStorage = localStorage.getItem("@CLAuth:user");
+        this.user = JSON.parse(userLocalStorage);
+    }
 
-    /**
-     * Toggle sidebar open
-     *
-     * @param key
-     */
-    toggleSidebarOpen(key): void
-    {
+    singOut() {
+        localStorage.removeItem("@CLAuth:token");
+        localStorage.removeItem("@CLAuth:user");
+
+        this.router.navigate(['/auth/login']);
+    }
+
+    toggleSidebarOpen(key): void {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
     }
 
-    /**
-     * Search
-     *
-     * @param value
-     */
-    search(value): void
-    {
-        // Do your search here...
+    search(value): void {
         console.log(value);
     }
 
-    /**
-     * Set the language
-     *
-     * @param lang
-     */
-    setLanguage(lang): void
-    {
-        // Set the selected language for the toolbar
+    setLanguage(lang): void {
         this.selectedLanguage = lang;
-
-        // Use the selected language for translations
         this._translateService.use(lang.id);
     }
 }

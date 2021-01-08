@@ -11,12 +11,11 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     singIn(login: LoginInterface) {
-        return this.http.post(`${environment.api_url}`, login);
+        return this.http.post(`${environment.api_url}/autentication`, login);
     }
 
-
     public getToken(): Token {
-        return JSON.parse(localStorage.getItem("token"));
+        return JSON.parse(localStorage.getItem("@CLAuth:token"));
     }
 
 }
