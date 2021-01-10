@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ParamsService } from 'app/shared/services/params-service.service';
 import { environment } from 'environments/environment';
 import { MemberInterface } from '../interfaces/member.interface'
 @Injectable({
@@ -8,10 +9,14 @@ import { MemberInterface } from '../interfaces/member.interface'
 
 export class UserService {
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private paramsService: ParamsService
+    ) { }
 
-    getAll() {
-        return this.http.get<any[]>(`${environment.api_url}/user/`)
+    getAll(params?) {
+        const dataFiltro = '?' + this.paramsService.criarUrl(params, '');
+        return this.http.get<any[]>(`${environment.api_url}/user${dataFiltro}`)
     }
 
     getById(id: number) {

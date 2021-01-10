@@ -20,11 +20,15 @@ export class MemberApprovalComponent implements OnInit {
     }
 
     setDataSource() {
+        const params = {
+            active: false
+        };
+
         this.userService
-            .getAll()
+            .getAll(params)
             .subscribe(
                 response => {
-                    this.dataSource = response.filter(user => !user.active);
+                    this.dataSource = response;
                 },
                 error => console.log("ERROR :", error)
             )

@@ -1,5 +1,5 @@
 import { AgmCoreModule } from '@agm/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FuseWidgetModule } from '@fuse/components';
@@ -8,6 +8,7 @@ import { AngularMaterialModule } from './angular-material/angular-materal.module
 
 import { MenuSharedService } from './services/menu-shared.service';
 import { AuthService } from './services/auth.service';
+import { ParamsService } from './services/params-service.service';
 
 import { AssingMenuModalComponent } from './components/assing-menu-modal/assing-menu-modal.component';
 import { ExerciceSelectComponent } from './components/selects/exercice-select/exercice-select.component';
@@ -31,8 +32,10 @@ import { ExerciceSelectComponent } from './components/selects/exercice-select/ex
         ExerciceSelectComponent
     ],
     providers: [
+        DatePipe,
         MenuSharedService,
-        AuthService
+        AuthService,
+        ParamsService
     ],
 })
 export class SharedModule { }

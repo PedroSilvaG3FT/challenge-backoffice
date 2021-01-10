@@ -9,6 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
 import { Router } from '@angular/router';
+import { MemberInterface } from 'app/modules/member/interfaces/member.interface';
 
 @Component({
     selector: 'toolbar',
@@ -28,7 +29,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     private _unsubscribeAll: Subject<any>;
 
-    public user: any;
+    public user: MemberInterface = {} as MemberInterface;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -85,7 +86,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._getUser();
-        
+
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((settings) => {

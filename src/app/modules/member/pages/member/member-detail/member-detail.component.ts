@@ -45,8 +45,14 @@ export class MemberDetailComponent implements OnInit {
     saveUser() {
         this.member.goalWeek = Number(this.member.goalWeek);
         
+        const memberUpdateDTO: MemberInterface = {
+            id: Number(this.member.id),
+            goalWeek: Number(this.member.goalWeek),
+            goalWeight: Number(this.member.goalWeight),
+        } as MemberInterface;
+
         this.userService
-            .update(this.member)
+            .update(memberUpdateDTO)
             .subscribe(
                 response => {
                     alert("Atualizado com Sucesso");
