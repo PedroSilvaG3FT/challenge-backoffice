@@ -39,7 +39,7 @@ export class NewMenuComponent implements OnInit {
         private menuItemService: MenuItemService
     ) { }
 
-    ngOnInit(): void { 
+    ngOnInit(): void {
         this.menuId = this.actvatedRoute.snapshot.params.id;
         this.isNew = this.menuId ? false : true;
 
@@ -56,7 +56,7 @@ export class NewMenuComponent implements OnInit {
                     this.menu = response;
                     this.days = this.menu.days;
                     console.log("RESPONSE :", response);
-                },  
+                },
                 error => console.log("ERROR :", error)
             )
     }
@@ -99,38 +99,78 @@ export class NewMenuComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (!result) return;
-            console.log("RESULT :", result);
-            console.log("DAY :", this.days[indexDay]);
 
-            if(result.id) {
-                const updateItem = {
+            if (result.id) {
+                const updateMenuItem = {
                     id: result.id,
                     descripition: result.descripition
                 } as MenuItemDTOInterface;
-                
-                this.menuItemService
-                    .update(updateItem)
-                    .subscribe(
-                        response => {
-                            this.days[indexDay].meals[indexMeal].descripition = updateItem.descripition;
-                            console.log("RESPONSE :", response);
-                        },
-                        error => console.log("ERROR :", error)
-                    );
 
+                this._updateMeal(updateMenuItem, indexDay, indexMeal);
             } else {
-                if(this.isNew){
+                if (this.isNew) {
                     this.days[indexDay].meals.push(result);
-                }else {
-                    console.log("SALVAR NO BANCO");
+                } else {
+                    const day = this.days[indexDay];
+
+                    const newMenuItem = {
+                        menuId: this.menuId,
+                        typeMealId: result.typeMealId,
+                        descripition: result.descripition,
+
+                        day: {
+                            dayId: day.dayId,
+                            numberDay: day.numberDay
+                        }
+                    };
+
+                    this._createMeal(newMenuItem);
                 }
             }
 
         });
     }
 
+    _updateMeal(data: MenuItemDTOInterface, indexDay, indexMeal) {
+        this.menuItemService
+            .update(data)
+            .subscribe(
+                response => {
+                    this.days[indexDay].meals[indexMeal].descripition = data.descripition;
+                    console.log("RESPONSE :", response);
+                },
+                error => console.log("ERROR :", error)
+            );
+    }
+
+    _createMeal(data: MenuItemDTOInterface) {
+        this.menuItemService
+            .create(data)
+            .subscribe(
+                response => {
+                    this.getMenu();
+                    console.log("RESPONSE :", response);
+                },
+                error => console.log("ERROR :", error)
+            );
+    }
+
     removeMeal(indexDay: number, indexMeal: number) {
-        this.days[indexDay].meals.splice(indexMeal, 1);
+        const meal = this.days[indexDay].meals[indexMeal];
+
+        if (meal.id) {
+            this.menuItemService
+                .delete(meal.id)
+                .subscribe(
+                    response => {
+                        console.log("RESPONSE :", response);
+                        this.days[indexDay].meals.splice(indexMeal, 1);
+                    },
+                    error => console.log("ERROR :", error)
+                )
+        } else {
+            this.days[indexDay].meals.splice(indexMeal, 1);
+        }
     }
 
     editMeal(indexDay: number, indexMeal: number) {
@@ -139,18 +179,32 @@ export class NewMenuComponent implements OnInit {
     }
 
     saveMenu() {
-        this.menu.days = this.days;
-        this.menuService
-            .create(this.menu)
-            .subscribe(
-                response => {
-                    console.log("RESPONSE :", response);
-                    this.router.navigate(['registration/menu']);
-                },
-                error => {
-                    console.log("ERROR", error);
-                }
-            )
+        if (this.isNew) {
+
+            this.menu.days = this.days;
+            this.menuService
+                .create(this.menu)
+                .subscribe(
+                    response => {
+                        console.log("RESPONSE :", response);
+                        this.router.navigate(['registration/menu']);
+                    },
+                    error => {
+                        console.log("ERROR", error);
+                    }
+                )
+        } else {
+            console.log("-- EDIT -- ")
+            this.menuService
+                .update(this.menu)
+                .subscribe(
+                    response => {
+                        console.log("RESPONSE :", response);
+                        this.router.navigate(['registration/menu']);
+                    },
+                    error => console.log("ERRO :", error)
+                )
+        }
     }
 }
 

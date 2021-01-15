@@ -14,6 +14,7 @@ export interface MenuInterfaceDTO {
 export interface MenuDayInterfaceDTO {
     dayId: number,
     name: string,
+    numberDay?: number,
     meals: MenuMealInterfaceDTO[]
 }
 export interface MenuMealInterfaceDTO {

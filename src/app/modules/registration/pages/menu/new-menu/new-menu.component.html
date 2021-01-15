@@ -10,7 +10,7 @@
 				<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
 				<span class="secondary-text">Cardapio</span>
 				<mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-				<span class="secondary-text">Novo Cardapio</span>
+				<span class="secondary-text">{{isNew ? 'Novo' : 'Editar'}} Cardapio</span>
 			</div>
 
 			<div class="h2 mt-16">{{menu.name || title}}</div>
@@ -23,7 +23,7 @@
 			[disabled]="!days.length || !menu.name"
 		>
 			<mat-icon>add</mat-icon>
-			Adicionar
+			Salvar
 		</button>
 	</div>
 
