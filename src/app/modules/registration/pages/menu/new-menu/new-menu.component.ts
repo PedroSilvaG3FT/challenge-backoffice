@@ -7,7 +7,7 @@ import {
 } from '../../../interfaces/menu.interface'
 import { MatDialog } from '@angular/material/dialog';
 import { AddMealModalComponent } from 'app/modules/registration/components/modal/addMealModal/add-meal-modal.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-exemple',
@@ -19,6 +19,9 @@ import { Router } from '@angular/router';
 export class NewMenuComponent implements OnInit {
     public title: string = "Novo Cardapio";
 
+    public menuId: number;
+    public isNew: boolean = true;
+
     public newDay: number;
     public currtenDayId: number = 1;
     public currentDayCopy: MenuDayInterfaceDTO;
@@ -27,12 +30,33 @@ export class NewMenuComponent implements OnInit {
     public days: MenuDayInterfaceDTO[] = [];
 
     constructor(
+        private actvatedRoute: ActivatedRoute,
         private menuService: MenuService,
-        private router: Router,
         public dialog: MatDialog,
+        private router: Router,
     ) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void { 
+        this.menuId = this.actvatedRoute.snapshot.params.id;
+        this.isNew = this.menuId ? false : true;
+
+        if (!this.isNew) {
+            this.getMenu()
+        }
+    }
+
+    getMenu() {
+        this.menuService
+            .getById(this.menuId)
+            .subscribe(
+                response => {
+                    this.menu = response;
+                    this.days = this.menu.days;
+                    console.log("RESPONSE :", response);
+                },  
+                error => console.log("ERROR :", error)
+            )
+    }
 
     addDay() {
         if (this.currtenDayId === 8) {
@@ -58,7 +82,6 @@ export class NewMenuComponent implements OnInit {
     }
 
     removeDay(day: MenuDayInterfaceDTO, index) {
-        console.log("DAY", day);
         if (day.meals.length) {
             alert("CHAMA A CONFIRMAÇÃO");
         } else {
@@ -80,6 +103,12 @@ export class NewMenuComponent implements OnInit {
 
     removeMeal(indexDay: number, indexMeal: number) {
         this.days[indexDay].meals.splice(indexMeal, 1);
+    }
+
+    editMeal(indexDay: number, indexMeal: number) {
+        const meal = this.days[indexDay].meals[indexMeal];
+
+        console.log("SELECTED MEAL", meal);
     }
 
     saveMenu() {

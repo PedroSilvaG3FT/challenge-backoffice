@@ -16,7 +16,12 @@
 			<div class="h2 mt-16">{{menu.name || title}}</div>
 		</div>
 
-		<button mat-raised-button color="accent" (click)="saveMenu()">
+		<button
+			mat-raised-button
+			color="accent"
+			(click)="saveMenu()"
+			[disabled]="!days.length || !menu.name"
+		>
 			<mat-icon>add</mat-icon>
 			Adicionar
 		</button>
@@ -93,10 +98,6 @@
 				</div>
 
 				<div *ngFor="let meal of day.meals; let iMeal = index">
-					<span>
-						<b>- {{meal.name}}:</b>
-						{{meal.descripition}}
-					</span>
 					<button
 						mat-icon-button
 						color="warn"
@@ -105,6 +106,19 @@
 					>
 						<mat-icon>remove_circle</mat-icon>
 					</button>
+
+					<button
+						mat-icon-button
+						matTooltip="Editar Refeição"
+						(click)="editMeal(iDay, iMeal)"
+					>
+						<mat-icon>edit</mat-icon>
+					</button>
+
+					<span>
+						| <b>{{meal.name}}:</b>
+						{{meal.descripition}}
+					</span>
 				</div>
 			</mat-card>
 		</div>
@@ -114,9 +128,9 @@
 			fxLayoutAlign="center center"
 			*ngIf="!days.length"
 		>
-			<span class="mat-subheading-2 my-0"
-				>- Sem refeições cadastradas -</span
-			>
+			<span class="mat-subheading-2 my-0">
+				- Sem refeições cadastradas -
+			</span>
 			<span class="mat-caption mt-0 mb-32">
 				(Adicione dias para incluir refeições)
 			</span>

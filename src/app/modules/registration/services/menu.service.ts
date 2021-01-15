@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { MenuInterface } from '../interfaces/menu.interface';
+import { MenuInterface, MenuInterfaceDTO } from '../interfaces/menu.interface';
 
 @Injectable({providedIn: 'root'})
 
@@ -14,7 +14,7 @@ export class MenuService {
     }
 
     getById(id: number) {
-        return this.http.get<MenuInterface>(`${environment.api_url}/menu/${id}`);
+        return this.http.get<MenuInterfaceDTO>(`${environment.api_url}/menu/${id}`);
     }
     
     create(menu) {
