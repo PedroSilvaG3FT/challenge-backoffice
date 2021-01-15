@@ -9,16 +9,25 @@ import { MenuDayInterfaceDTO, MenuMealInterfaceDTO } from 'app/modules/registrat
 
 export class AddMealModalComponent implements OnInit, OnDestroy {
     public typeMealSelect = TYPE_MEAL_LIST;
+    public isNew: boolean = true;
 
     public meal: MenuMealInterfaceDTO = {} as MenuMealInterfaceDTO;
 
     constructor(
         public dialogRef: MatDialogRef<AddMealModalComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: MenuDayInterfaceDTO
+        @Inject(MAT_DIALOG_DATA) public data: MenuDayInterfaceDTO | any
     ) { }
 
     ngOnInit() {
         // this._validListTypeMeal();
+        console.log("SELECTED :", this.data);
+        if (this.data?.id) {
+            this.isNew = false;
+            
+            this.meal.typeMealId = this.data.typeMealId;
+            this.meal.descripition = this.data.descripition;
+            this.meal.id = this.data.id;
+        }
     }
 
     _validListTypeMeal() {

@@ -10,6 +10,7 @@ import { AngularMaterialModule } from 'app/shared/angular-material/angular-mater
 
 import { MenuService } from './services/menu.service';
 import { ExerciceService } from './services/exercice.service';
+import { MenuItemService } from './services/menu-item.service';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { NewMenuComponent } from './pages/menu/new-menu/new-menu.component';
@@ -29,7 +30,8 @@ import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-
   ],
   providers: [
     MenuService,
-    ExerciceService
+    ExerciceService,
+    MenuItemService
   ],
   imports: [
     RegistrationRoutingModule,

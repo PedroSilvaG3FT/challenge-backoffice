@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Adicionar Refeição</h1>
+<h1 mat-dialog-title>{{isNew ? 'Adicionar' : 'Editar'}} Refeição</h1>
 
 <div mat-dialog-content>
 	<form #addMealForm="ngForm" (submit)="addMeal()">
@@ -9,6 +9,7 @@
 					required
 					id="selectDay"
 					name="selectDay"
+					[disabled]="!isNew"
 					[(ngModel)]="meal.typeMealId"
 				>
 					<mat-option
@@ -40,6 +41,6 @@
 <div mat-dialog-actions>
 	<button mat-button mat-dialog-close>Cancelar</button>
 	<button mat-raised-button color="accent" (click)="addMeal()" [disabled]="addMealForm.form.invalid">
-		Adicionar
+		Salvar
 	</button>
 </div>

@@ -8,6 +8,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AddMealModalComponent } from 'app/modules/registration/components/modal/addMealModal/add-meal-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItemService } from 'app/modules/registration/services/menu-item.service';
+import { MenuItemDTOInterface } from 'app/modules/registration/interfaces/menu-item.interface';
 
 @Component({
     selector: 'app-exemple',
@@ -34,6 +36,7 @@ export class NewMenuComponent implements OnInit {
         private menuService: MenuService,
         public dialog: MatDialog,
         private router: Router,
+        private menuItemService: MenuItemService
     ) { }
 
     ngOnInit(): void { 
@@ -91,13 +94,38 @@ export class NewMenuComponent implements OnInit {
 
     }
 
-    openAddMealModal(data, index: number) {
+    openAddMealModal(data, indexDay: number, indexMeal?: number) {
         const dialogRef = this.dialog.open(AddMealModalComponent, { data });
 
         dialogRef.afterClosed().subscribe(result => {
             if (!result) return;
+            console.log("RESULT :", result);
+            console.log("DAY :", this.days[indexDay]);
 
-            this.days[index].meals.push(result);
+            if(result.id) {
+                const updateItem = {
+                    id: result.id,
+                    descripition: result.descripition
+                } as MenuItemDTOInterface;
+                
+                this.menuItemService
+                    .update(updateItem)
+                    .subscribe(
+                        response => {
+                            this.days[indexDay].meals[indexMeal].descripition = updateItem.descripition;
+                            console.log("RESPONSE :", response);
+                        },
+                        error => console.log("ERROR :", error)
+                    );
+
+            } else {
+                if(this.isNew){
+                    this.days[indexDay].meals.push(result);
+                }else {
+                    console.log("SALVAR NO BANCO");
+                }
+            }
+
         });
     }
 
@@ -107,8 +135,7 @@ export class NewMenuComponent implements OnInit {
 
     editMeal(indexDay: number, indexMeal: number) {
         const meal = this.days[indexDay].meals[indexMeal];
-
-        console.log("SELECTED MEAL", meal);
+        this.openAddMealModal(meal, indexDay, indexMeal);
     }
 
     saveMenu() {
