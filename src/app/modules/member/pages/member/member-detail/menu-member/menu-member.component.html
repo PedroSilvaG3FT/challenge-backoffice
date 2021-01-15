@@ -43,16 +43,27 @@
 					<mat-card class="mx-12 card-meal-custom">
 						<div class="header-card-meal">
 							<h4>{{meal.typeMealName}}</h4>
-							<h5 class="text-truncate" [matTooltip]="meal.descripition">
+							<h5
+								class="text-truncate"
+								[matTooltip]="meal.descripition"
+							>
 								{{meal.descripition}}
 							</h5>
 						</div>
 
 						<div class="image-container">
 							<img
-								src="https://img.itdg.com.br/tdg/images/blog/uploads/2016/11/shutterstock_251690740.jpg"
-								alt="Photo of a Shiba Inu"
+								*ngIf="meal.imageItem; else other_content"
+								src="data:image/png;base64,{{meal.imageItem}}"
+								alt="Image Item"
 							/>
+
+							<ng-template #other_content>
+								<img
+									src="https://img.itdg.com.br/tdg/images/blog/uploads/2016/11/shutterstock_251690740.jpg"
+									alt="Image Item"
+								/>
+							</ng-template>
 						</div>
 
 						<div
@@ -62,15 +73,18 @@
 						>
 							<mat-button-toggle-group
 								#group="matButtonToggleGroup"
+								[value]="meal.rating"
 								color="primary"
-								value="2"
+								(change)="onChangeRating($event, meal.menuItemId)"
 							>
 								<mat-button-toggle value="1" matTooltip="Reprovado">
 									<mat-icon>mood_bad</mat-icon>
 								</mat-button-toggle>
+								
 								<mat-button-toggle value="2" matTooltip="Ok">
 									<mat-icon>check</mat-icon>
 								</mat-button-toggle>
+
 								<mat-button-toggle value="3" matTooltip="Excelente">
 									<mat-icon>mood</mat-icon>
 								</mat-button-toggle>

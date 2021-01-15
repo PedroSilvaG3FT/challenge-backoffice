@@ -69,5 +69,10 @@ export class MenuMemberComponent implements OnInit {
                 error => console.error("ERROR", error)
             )
     }
+
+    onChangeRating(value, itemId): void {
+        console.log("EVENT :", event);
+        console.log("itemId :", itemId);
+    }
     
 }
