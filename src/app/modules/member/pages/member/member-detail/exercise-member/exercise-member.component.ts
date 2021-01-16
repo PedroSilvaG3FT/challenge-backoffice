@@ -60,8 +60,7 @@ export class ExerciseMemberComponent implements OnInit {
             .create(createExercices)
             .subscribe(
                 response => {
-                    console.log(response),
-                    this.getExercicesMember()
+                    console.log(response)
                 },
                 error => console.error("ERROR :", error)
             )

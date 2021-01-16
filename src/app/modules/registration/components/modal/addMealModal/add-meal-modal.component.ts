@@ -20,10 +20,9 @@ export class AddMealModalComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // this._validListTypeMeal();
-        console.log("SELECTED :", this.data);
         if (this.data?.id) {
             this.isNew = false;
-            
+
             this.meal.typeMealId = this.data.typeMealId;
             this.meal.descripition = this.data.descripition;
             this.meal.id = this.data.id;

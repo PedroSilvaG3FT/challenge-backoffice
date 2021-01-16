@@ -31,7 +31,10 @@ export class MemberComponent implements OnInit {
                     this.dataSource = response;
                     // this.dataSource = response.filter(user => user.active);
                 },
-                error => console.log("ERROR :", error)
+                error => {
+                    console.log("ERROR :", error);
+                    this.dataSource = [];
+                }
             )
     }
 

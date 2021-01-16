@@ -23,7 +23,7 @@
 			mat-raised-button
 			color="accent"
 			(click)="saveExercices()"
-			[disabled]="!days.length"
+			[disabled]="!days?.length"
 		>
 			Salvar Exercicios
 		</button>
@@ -61,7 +61,7 @@
 			</div>
 
 			<div
-				*ngIf="!day.exercices.length"
+				*ngIf="!day?.exercices?.length"
 				fxLayout="row"
 				fxLayoutAlign="center center"
 			>
@@ -109,9 +109,9 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!days.length">
-		<span class="mat-subheading-2 my-0"
-			>- Sem Exercicios cadastrados -</span
-		>
+		<span class="mat-subheading-2 my-0">
+			- Sem Exercicios cadastrados -
+		</span>
 		<span class="mat-caption mt-0 mb-32">
 			(Adicione dias para incluir exercicios)
 		</span>
