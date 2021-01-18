@@ -17,4 +17,8 @@ export class MenuUserService {
     create(data: { menuId: number, userId: number }) {
         return this.http.post(`${environment.api_url}/menuUser`, data);
     }
+
+    updateRating(data: { menuUserItemImageId: number, rating: number }) {
+        return this.http.put(`${environment.api_url}/menuUser/menuItemImage`, data);
+    }
 }

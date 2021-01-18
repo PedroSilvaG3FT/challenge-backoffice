@@ -1,0 +1,39 @@
+<div class="content p-24">
+	<div fxLayout="row" fxLayoutAlign=" center">
+		<mat-form-field floatlabel="always" fxFlex="20" class="mr-8">
+			<mat-label>Dia do Pagamento</mat-label>
+			<input
+				matInput
+				type="number"
+				id="payday"
+				name="payday"
+				[(ngModel)]="member.payday"
+			/>
+		</mat-form-field>
+
+		<!-- <mat-form-field floatlabel="always" fxFlex="50" class="mr-8">
+			<mat-label>Forma de Pagamento</mat-label>
+			<input
+				matInput
+				id="payment"
+				name="payment"
+				[(ngModel)]="member.paymentId"
+			/>
+		</mat-form-field> -->
+
+		<mat-form-field fxFlex="50" class="mr-8">
+			<mat-label>Forma de Pagamento</mat-label>
+			<mat-select [(ngModel)]="member.paymentId">
+				<mat-option *ngFor="let payment of paymentOptions" [value]="payment.id">
+                    {{payment.name}}
+                </mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<div>
+			<button mat-raised-button color="accent">
+				Salvar
+			</button>
+		</div>
+	</div>
+</div>

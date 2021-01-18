@@ -29,38 +29,48 @@
 						</ng-container>
 
 						<ng-container matColumnDef="startingWeight">
-							<th mat-header-cell *matHeaderCellDef>Peso Inicial</th>
+							<th mat-header-cell *matHeaderCellDef>
+								Peso Inicial
+							</th>
 							<td mat-cell *matCellDef="let element">
-								{{element.startingWeight}}
+								{{element.startingWeight || '--' }} Kg
 							</td>
-                        </ng-container>
-                        
-                        <ng-container matColumnDef="currentWeight">
-							<th mat-header-cell *matHeaderCellDef>Peso Atual</th>
+						</ng-container>
+
+						<ng-container matColumnDef="currentWeight">
+							<th mat-header-cell *matHeaderCellDef>
+								Peso Atual
+							</th>
 							<td mat-cell *matCellDef="let element">
-								{{element.currentWeight}}
+								{{element.currentWeight || '--' }} Kg
 							</td>
-                        </ng-container>
-                        
-                        <ng-container matColumnDef="goalWeek">
-							<th mat-header-cell *matHeaderCellDef>Meta da semana</th>
+						</ng-container>
+
+						<ng-container matColumnDef="goalWeek">
+							<th mat-header-cell *matHeaderCellDef>
+								Meta da semana
+							</th>
 							<td mat-cell *matCellDef="let element">
-								{{element.goalWeek}}
+								{{element.goalWeek || '--' }} Kg
 							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="goalWeight">
-							<th mat-header-cell *matHeaderCellDef>Meta Final</th>
+							<th mat-header-cell *matHeaderCellDef>
+								Meta Final
+							</th>
 							<td mat-cell *matCellDef="let element">
-								{{element.goalWeight}}
+								{{element.goalWeight || '--' }} Kg
 							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="active">
 							<th mat-header-cell *matHeaderCellDef>Ativo</th>
 							<td mat-cell *matCellDef="let element">
-								<mat-slide-toggle 
-									[checked]="element.active === 1 ? true : false">
+								<mat-slide-toggle
+									[disabled]="true"
+									[checked]="element.active"
+								>
 								</mat-slide-toggle>
 							</td>
 						</ng-container>
@@ -68,7 +78,11 @@
 						<ng-container matColumnDef="action">
 							<th mat-header-cell *matHeaderCellDef>Ação</th>
 							<td mat-cell *matCellDef="let element">
-								<button mat-icon-button color="accent" (click)="goToDetail(element.id)">
+								<button
+									mat-icon-button
+									color="accent"
+									(click)="goToDetail(element.id)"
+								>
 									<mat-icon>remove_red_eye</mat-icon>
 								</button>
 							</td>

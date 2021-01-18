@@ -12,6 +12,7 @@ export interface MemberInterface {
     goalWeek?: number;
     height?: number;
     payday?: number;
+    paymentId?: number;
     isAdm?: boolean;
     image?: string;
     acceptTerm?: boolean;

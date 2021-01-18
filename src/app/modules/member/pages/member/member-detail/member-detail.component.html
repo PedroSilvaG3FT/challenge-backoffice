@@ -194,9 +194,15 @@
 			<mat-tab label="Cardápio">
 				<app-menu-member [userId]="userId"></app-menu-member>
 			</mat-tab>
+
 			<mat-tab label="Exercicios">
 				<app-exercise-member [userId]="userId"></app-exercise-member>
 			</mat-tab>
+
+			<mat-tab label="Financeiro">
+				<app-financial-member [member]="member"></app-financial-member>
+			</mat-tab>
+
 		</mat-tab-group>
 	</div>
 </div>

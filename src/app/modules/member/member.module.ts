@@ -13,6 +13,7 @@ import { MemberDetailComponent } from './pages/member/member-detail/member-detai
 import { MemberApprovalComponent } from './pages/member-approval/member-approval.component';
 import { MenuMemberComponent } from './pages/member/member-detail/menu-member/menu-member.component';
 import { ExerciseMemberComponent } from './pages/member/member-detail/exercise-member/exercise-member.component';
+import { FinancialMemberComponent } from './pages/member/member-detail/financial-member/financial-member.component';
 
 import { ExerciceUserService } from './services/exercice-user.service';
 
@@ -27,6 +28,7 @@ import { SharedModule } from 'app/shared/shared.module';
         MenuMemberComponent,
         MemberDetailComponent,
         ExerciseMemberComponent,
+        FinancialMemberComponent,
         MemberApprovalComponent,
     ],
     imports: [ 

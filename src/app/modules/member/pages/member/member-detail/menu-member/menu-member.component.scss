@@ -19,12 +19,15 @@
 	}
 
 	.image-container {
-		flex: 1;
-		padding: 8px;
+    	flex: 1;
+    	padding: 8px;
+    	display: flex;
+    	justify-content: center;
 
 		img {
 			object-fit: contain;
 			border-radius: 8px;
+			max-width: 175px;
 		}
 	}
 

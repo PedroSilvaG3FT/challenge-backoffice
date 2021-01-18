@@ -33,6 +33,7 @@ export class ExerciseMemberComponent implements OnInit {
             .getByUserId(this.userId)
             .subscribe(
                 response => {
+                    console.log(response);
                     this.days = response;
                     this.currtenDayId = this.days.length + 1;
                 },

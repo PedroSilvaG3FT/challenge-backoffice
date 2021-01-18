@@ -71,8 +71,22 @@ export class MenuMemberComponent implements OnInit {
     }
 
     onChangeRating(value, itemId): void {
-        console.log("EVENT :", event);
+        console.log("EVENT :", value);
         console.log("itemId :", itemId);
+        
+        this.menuUserService
+            .updateRating({
+                menuUserItemImageId: itemId,
+                rating: value
+            })
+            .subscribe(
+                response => {
+                    console.log("RESPONSE :", response);
+                },
+                error => {
+                    console.log("ERROR :", error)
+                }
+            )
     }
     
 }

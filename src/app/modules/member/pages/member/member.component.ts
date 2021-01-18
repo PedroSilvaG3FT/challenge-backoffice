@@ -27,9 +27,7 @@ export class MemberComponent implements OnInit {
             .getAll()
             .subscribe(
                 response => {
-                    console.log("RESPONSE ", response);
                     this.dataSource = response;
-                    // this.dataSource = response.filter(user => user.active);
                 },
                 error => {
                     console.log("ERROR :", error);
