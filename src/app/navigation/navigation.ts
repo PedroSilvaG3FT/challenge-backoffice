@@ -29,6 +29,13 @@ export const navigation: FuseNavigation[] = [
             icon: 'directions_run',
             url: 'registration/exercice',
           },
+          {
+            id: 'paymentRegister',
+            title: 'Forma de Pagamento',
+            type: 'item',
+            icon: 'credit_card',
+            url: 'registration/payment',
+          },
         ],
       },
       {

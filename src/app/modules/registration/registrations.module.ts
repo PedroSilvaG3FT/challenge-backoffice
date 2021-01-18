@@ -18,6 +18,9 @@ import { NewMenuComponent } from './pages/menu/new-menu/new-menu.component';
 import { ExerciceComponent } from './pages/exercice/exercice.component';
 import { NewExerciceComponent } from './pages/exercice//new-exercice/new-exercice.component';
 
+import { PaymentComponent } from './pages/payment/payment.component';
+import { NewPaymentComponent } from './pages/payment/new-payment/new-payment.component';
+
 import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-modal.component'
 
 @NgModule({
@@ -26,6 +29,9 @@ import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-
     NewMenuComponent,
     ExerciceComponent,
     NewExerciceComponent,
+    PaymentComponent,
+    NewPaymentComponent,
+
     AddMealModalComponent,
   ],
   providers: [
