@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MemberInterface } from 'app/modules/member/interfaces/member.interface';
+import { UserService } from 'app/modules/member/services/user.service';
 import { PaymentInterface } from 'app/modules/registration/interfaces/payment.interface';
 import { PaymentService } from 'app/modules/registration/services/payment.service';
 
@@ -14,11 +15,13 @@ export class FinancialMemberComponent implements OnInit {
     public paymentOptions: PaymentInterface[] = [];
     
     constructor(
+        private userService: UserService,
         private paymentService: PaymentService, 
     ) { }
 
 
     ngOnInit(): void {
+        console.log(this.member);
         this._getPaymentOptions();
     }
 
@@ -32,6 +35,23 @@ export class FinancialMemberComponent implements OnInit {
                 error => {
                     console.error("GET SELECT: ", error);
                 }
+            )
+    }
+
+    saveUser() {
+        const memberUpdateDTO: MemberInterface = {
+            id: this.member.id,
+            payday: this.member.payday,
+            paymentId: this.member.paymentId,
+        } as MemberInterface;
+
+        this.userService
+            .update(memberUpdateDTO)
+            .subscribe(
+                response => {
+                    alert("Atualizado com Sucesso");
+                },
+                error => alert("Erro ao atualizar")
             )
     }
 

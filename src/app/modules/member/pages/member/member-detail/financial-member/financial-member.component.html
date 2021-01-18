@@ -11,16 +11,6 @@
 			/>
 		</mat-form-field>
 
-		<!-- <mat-form-field floatlabel="always" fxFlex="50" class="mr-8">
-			<mat-label>Forma de Pagamento</mat-label>
-			<input
-				matInput
-				id="payment"
-				name="payment"
-				[(ngModel)]="member.paymentId"
-			/>
-		</mat-form-field> -->
-
 		<mat-form-field fxFlex="50" class="mr-8">
 			<mat-label>Forma de Pagamento</mat-label>
 			<mat-select [(ngModel)]="member.paymentId">
@@ -31,7 +21,7 @@
 		</mat-form-field>
 
 		<div>
-			<button mat-raised-button color="accent">
+			<button mat-raised-button color="accent" (click)="saveUser()">
 				Salvar
 			</button>
 		</div>
