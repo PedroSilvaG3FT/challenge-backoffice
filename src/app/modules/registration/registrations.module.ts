@@ -12,6 +12,7 @@ import { MenuService } from './services/menu.service';
 import { ExerciceService } from './services/exercice.service';
 import { MenuItemService } from './services/menu-item.service';
 import { PaymentService } from './services/payment.service';
+import { BankAccountService } from './services/bank-account.service';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { NewMenuComponent } from './pages/menu/new-menu/new-menu.component';
@@ -41,7 +42,8 @@ import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-
     MenuService,
     ExerciceService,
     MenuItemService,
-    PaymentService
+    PaymentService,
+    BankAccountService
   ],
   imports: [
     RegistrationRoutingModule,

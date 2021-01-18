@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { BankAccountInterface } from 'app/modules/registration/interfaces/bank-account.interface';
+import { BankAccountService } from 'app/modules/registration/services/bank-account.service';
 
 @Component({
     selector: 'app-bank-account-form',
@@ -12,14 +13,57 @@ export class BankAccountComponent implements OnInit {
 
     public newBankAccount: BankAccountInterface = {} as BankAccountInterface;
 
-    public displayedColumns: string[] = ['id', 'bank', 'agency', 'account', 'document', 'nameOwner', 'action'];
+    public displayedColumns: string[] = ['bank', 'agency', 'account', 'document', 'nameOwner', 'action'];
     public dataSource: BankAccountInterface[] = [];
     
-    constructor() { }
+    constructor(
+        private bankAccountService: BankAccountService
+    ) { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        this.getAccount();
+    }
+
+    getAccount() {
+        this.bankAccountService
+            .getAll()
+            .subscribe(
+                response => {
+                    this.dataSource = response;
+                },
+                error => {
+                    console.log("ERROR :", error);
+                }
+            )
+    }
 
     addAccount() {
-        console.log("NEW :", this.newBankAccount);
+        this.bankAccountService
+            .create(this.newBankAccount)
+            .subscribe(
+                response => {
+                    alert("Criado com sucesso");
+                    this.getAccount();
+                    this.accordion.closeAll();
+                    this.newBankAccount = {} as BankAccountInterface;
+                },
+                error => {
+                    console.log("ERRO :", error);
+                }
+            )
+    }
+
+    removeAccount(id: number) {
+        this.bankAccountService
+            .delete(id)
+            .subscribe(
+                response => {
+                    this.getAccount();
+                    alert("Removido com sucesso");
+                },
+                error => {
+                    console.log("ERRO :", error);
+                }
+            )
     }
 }
