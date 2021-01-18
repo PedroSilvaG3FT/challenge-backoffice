@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExerciceInterface } from 'app/modules/registration/interfaces/exercice.interface'
-import { ExerciceService } from 'app/modules/registration/services/exercice.service';
+import { PaymentService } from 'app/modules/registration/services/payment.service';
+import { PaymentInterface } from 'app/modules/registration/interfaces/payment.interface';
+
 @Component({
     selector: 'app-new-exercice',
     templateUrl: 'new-payment.component.html'
@@ -9,58 +10,34 @@ import { ExerciceService } from 'app/modules/registration/services/exercice.serv
 
 export class NewPaymentComponent implements OnInit {
     public title: string = "Cadastro de Formas de Pagamento";
-    public exerciceId: number;
+    public paymentId: number;
     public isNew: boolean = true;
 
-    public exercice: ExerciceInterface = {} as ExerciceInterface;
+    public payment: PaymentInterface = {} as PaymentInterface;
+
     constructor(
-        private exerciceServce: ExerciceService,
+        private paymentService: PaymentService,
         private actvatedRoute: ActivatedRoute,
         private router: Router,
     ) { }
 
     ngOnInit() {
-        this.exerciceId = this.actvatedRoute.snapshot.params.id;
-        this.isNew = this.exerciceId ? false : true;
+        this.paymentId = this.actvatedRoute.snapshot.params.id;
+        this.isNew = this.paymentId ? false : true;
 
         if (!this.isNew) {
-            this.getExercice()
+            this.getPayment()
         }
     }
 
-    getExercice() {
-        this.exerciceServce
-            .getById(this.exerciceId)
+    getPayment() {
+        this.paymentService
+            .getById(this.paymentId)
             .subscribe(
                 response => {
-                    this.exercice = response;
+                    this.payment = response;
                 },
                 error => console.log("ERROR :", error)
             )
-    }
-
-    save() {
-        if (this.isNew) {
-
-            this.exerciceServce
-                .create(this.exercice)
-                .subscribe(
-                    response => {
-                        console.log("RESPONSE : ", response);
-                        this.router.navigate(['registration/exercice']);
-                    },
-                    error => console.log("ERROR :", error)
-                )
-        } else {
-            this.exerciceServce
-                .update(this.exercice)
-                .subscribe(
-                    response => {
-                        console.log("RESPONSE : ", response);
-                        this.router.navigate(['registration/exercice']);
-                    },
-                    error => console.log("ERROR :", error)
-                )
-        }
     }
 }

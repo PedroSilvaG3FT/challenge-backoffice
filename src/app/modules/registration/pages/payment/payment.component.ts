@@ -1,22 +1,23 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
-import { MenuService } from '../../services/menu.service';
-import { MenuInterface } from '../../interfaces/menu.interface'
+import { PaymentService } from '../../services/payment.service';
+import { PaymentInterface } from 'app/modules/registration/interfaces/payment.interface';
 
 @Component({
-    selector: 'app-exemple',
+    selector: 'app-payment',
     templateUrl: './payment.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
+
 export class PaymentComponent implements OnInit {
     public title: string = "Formas de Pagamento";
 
-    public displayedColumns: string[] = ['id', 'name', 'active', 'action'];
-    public dataSource: MenuInterface[] = [];
+    public displayedColumns: string[] = ['id', 'name', 'action'];
+    public dataSource: PaymentInterface[] = [];
 
     constructor(
-        private menuService: MenuService
+        private paymentService: PaymentService, 
     ) { }
 
     ngOnInit(): void {
@@ -24,7 +25,7 @@ export class PaymentComponent implements OnInit {
     }
 
     getPayment(): void {
-        this.menuService
+        this.paymentService
             .getAll()
             .subscribe(
                 response => {
@@ -34,30 +35,6 @@ export class PaymentComponent implements OnInit {
                 error => {
                     console.error("GET MENU: ", error);
                 }
-            )
-    }
-
-    disablePayment(id: number): void {
-        this.menuService
-            .disable(id)
-            .subscribe(
-                response => console.log(this.dataSource),
-                error => {
-                    this.getPayment();
-                    console.error("GET MENU: ", error);
-                }
-            )
-    }
-
-    deletePayment(id: number): void {
-        this.menuService
-            .delete(id)
-            .subscribe(
-                response => {
-                    console.log("RESPONSE :", response);
-                    this.getPayment();
-                },
-                error => console.log("ERROR :", error)
             )
     }
 }

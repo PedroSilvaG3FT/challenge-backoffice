@@ -13,26 +13,30 @@
 				<span class="secondary-text">Nova Forma de Pagamento</span>
 			</div>
 
-			<div class="h2 mt-16">{{title}}</div>
+			<div class="h2 mt-16">{{payment?.name || title}}</div>
 		</div>
 
-		<button mat-raised-button color="accent" (click)="save()">
-			<mat-icon>add</mat-icon>
-			Salvar
+		<button mat-raised-button color="accent">
+			<mat-icon>arrow_left</mat-icon>
+			Voltar
 		</button>
 	</div>
 
 	<div class="content p-24">
 		<div fxLayout="row" fxLayoutAlign=" center">
 			<mat-form-field floatlabel="always" fxFlex="50" class="mr-16">
-				<mat-label>Nome do Exercício</mat-label>
+				<mat-label>Nome</mat-label>
 				<input
 					matInput
-					id="menuName"
-					name="menuName"
-					[(ngModel)]="exercice.name"
+					id="paymentName"
+					name="paymentName"
+					[(ngModel)]="payment.name"
 				/>
             </mat-form-field>
-		</div>
+        </div>
+        
+        <div *ngIf="payment.id === 1">
+            <app-bank-account-form></app-bank-account-form>
+        </div>
 	</div>
 </div>

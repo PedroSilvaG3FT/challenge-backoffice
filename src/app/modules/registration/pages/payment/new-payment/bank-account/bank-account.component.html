@@ -1,0 +1,134 @@
+<!-- <div class="example-action-buttons">
+	<button mat-button (click)="accordion.openAll()">Expand All</button>
+	<button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div> -->
+<div fxFlex fxLayout="column">
+	<mat-accordion class="example-headers-align">
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Cadastrar Novo
+				</mat-panel-title>
+			</mat-expansion-panel-header>
+
+			<div fxLayout="row">
+				<mat-form-field class="mr-8" fxFlex="30">
+					<mat-label>Banco</mat-label>
+					<input
+						matInput
+						id="bank"
+						name="bank"
+						[(ngModel)]="newBankAccount.bank"
+					/>
+				</mat-form-field>
+
+				<mat-form-field class="mr-8" fxFlex="30">
+					<mat-label>Agência</mat-label>
+					<input
+						matInput
+						id="agency"
+						name="agency"
+						[(ngModel)]="newBankAccount.agency"
+					/>
+				</mat-form-field>
+
+				<mat-form-field class="mr-8" fxFlex="30">
+					<mat-label>Conta</mat-label>
+					<input
+						matInput
+						id="account"
+						name="account"
+						[(ngModel)]="newBankAccount.account"
+					/>
+				</mat-form-field>
+			</div>
+
+			<div fxLayout="row">
+				<mat-form-field class="mr-8" fxFlex="40">
+					<mat-label>CPF/CNPJ </mat-label>
+					<input
+						matInput
+						id="document"
+						name="document"
+						[(ngModel)]="newBankAccount.document"
+					/>
+				</mat-form-field>
+
+				<mat-form-field class="mr-8" fxFlex="51">
+					<mat-label>Nome Proprietário</mat-label>
+					<input
+						matInput
+						id="nameOwner"
+						name="nameOwner"
+						[(ngModel)]="newBankAccount.nameOwner"
+					/>
+				</mat-form-field>
+			</div>
+
+			<div fxLayout="row">
+				<button mat-raised-button color="accent" (click)="addAccount()">
+					Adicionar
+					<mat-icon>add</mat-icon>
+				</button>
+			</div>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<div fxFlex fxLayout="row">
+		<table mat-table fxFlex [dataSource]="dataSource">
+			<ng-container matColumnDef="id">
+				<th mat-header-cell *matHeaderCellDef>Id</th>
+				<td mat-cell *matCellDef="let element">
+					{{element.id}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="bank">
+				<th mat-header-cell *matHeaderCellDef>Banco</th>
+				<td mat-cell class="w-25-p" *matCellDef="let element">
+					{{element.bank}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="agency">
+				<th mat-header-cell *matHeaderCellDef>Agência</th>
+				<td mat-cell class="w-25-p" *matCellDef="let element">
+					{{element.agency}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="account">
+				<th mat-header-cell *matHeaderCellDef>Conta</th>
+				<td mat-cell class="w-25-p" *matCellDef="let element">
+					{{element.account}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="document">
+				<th mat-header-cell *matHeaderCellDef>CPF/CNPJ</th>
+				<td mat-cell class="w-25-p" *matCellDef="let element">
+					{{element.document}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="nameOwner">
+				<th mat-header-cell *matHeaderCellDef>Proprietário</th>
+				<td mat-cell class="w-25-p" *matCellDef="let element">
+					{{element.nameOwner}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="action">
+				<th mat-header-cell *matHeaderCellDef>Ação</th>
+				<td mat-cell *matCellDef="let element">
+					<button mat-icon-button color="accent">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+	</div>
+</div>

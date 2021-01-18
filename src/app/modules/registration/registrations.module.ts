@@ -11,6 +11,7 @@ import { AngularMaterialModule } from 'app/shared/angular-material/angular-mater
 import { MenuService } from './services/menu.service';
 import { ExerciceService } from './services/exercice.service';
 import { MenuItemService } from './services/menu-item.service';
+import { PaymentService } from './services/payment.service';
 
 import { MenuComponent } from './pages/menu/menu.component';
 import { NewMenuComponent } from './pages/menu/new-menu/new-menu.component';
@@ -20,6 +21,7 @@ import { NewExerciceComponent } from './pages/exercice//new-exercice/new-exercic
 
 import { PaymentComponent } from './pages/payment/payment.component';
 import { NewPaymentComponent } from './pages/payment/new-payment/new-payment.component';
+import { BankAccountComponent } from './pages/payment/new-payment/bank-account/bank-account.component';
 
 import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-modal.component'
 
@@ -31,13 +33,15 @@ import { AddMealModalComponent } from './components/modal/addMealModal/add-meal-
     NewExerciceComponent,
     PaymentComponent,
     NewPaymentComponent,
+    BankAccountComponent,
 
     AddMealModalComponent,
   ],
   providers: [
     MenuService,
     ExerciceService,
-    MenuItemService
+    MenuItemService,
+    PaymentService
   ],
   imports: [
     RegistrationRoutingModule,
