@@ -15,10 +15,12 @@ import { MenuMemberComponent } from './pages/member/member-detail/menu-member/me
 import { ExerciseMemberComponent } from './pages/member/member-detail/exercise-member/exercise-member.component';
 import { FinancialMemberComponent } from './pages/member/member-detail/financial-member/financial-member.component';
 
-import { ExerciceUserService } from './services/exercice-user.service';
 
+import { ExerciceUserService } from './services/exercice-user.service';
 import { MenuUserService } from './services/menu-user.service';
 import { UserService } from './services/user.service';
+import { PaymentUserService } from './services/payment-user.service';
+
 import { SharedModule } from 'app/shared/shared.module';
 
 
@@ -45,7 +47,8 @@ import { SharedModule } from 'app/shared/shared.module';
     providers: [
         MenuUserService,
         UserService,
-        ExerciceUserService
+        ExerciceUserService,
+        PaymentUserService
     ],
 })
 export class MemberModule {}

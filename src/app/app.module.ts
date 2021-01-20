@@ -22,6 +22,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { ExempleModule } from './modules/exemple/exemple.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { AuthGuard } from 'app/shared/guards/auth.guard';
+import { LOCALE_ID } from '@angular/core';
 
 const appRoutes: Routes = [
   {

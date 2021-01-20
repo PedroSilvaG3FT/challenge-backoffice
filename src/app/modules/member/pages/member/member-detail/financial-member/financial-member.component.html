@@ -14,9 +14,12 @@
 		<mat-form-field fxFlex="50" class="mr-8">
 			<mat-label>Forma de Pagamento</mat-label>
 			<mat-select [(ngModel)]="member.paymentId">
-				<mat-option *ngFor="let payment of paymentOptions" [value]="payment.id">
-                    {{payment.name}}
-                </mat-option>
+				<mat-option
+					*ngFor="let payment of paymentOptions"
+					[value]="payment.id"
+				>
+					{{payment.name}}
+				</mat-option>
 			</mat-select>
 		</mat-form-field>
 
@@ -25,5 +28,60 @@
 				Salvar
 			</button>
 		</div>
+	</div>
+
+	<div fxLayout="row" fxLayoutAlign=" center">
+		<table mat-table fxFlex [dataSource]="dataSource">
+			<ng-container matColumnDef="numberPlot">
+				<th mat-header-cell *matHeaderCellDef>Nº</th>
+				<td
+					mat-cell
+					class="w-25-p"
+					*matCellDef="let element; let i = index"
+				>
+					{{i + 1}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="value">
+				<th mat-header-cell *matHeaderCellDef>Valor</th>
+				<td mat-cell *matCellDef="let element">
+					{{element.value | currency:'BRL':true}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef>STATUS</th>
+				<td mat-cell *matCellDef="let element">
+					{{element.status}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dueDate">
+				<th mat-header-cell *matHeaderCellDef>
+					Data Vencimento
+				</th>
+				<td mat-cell *matCellDef="let element">
+					{{element.dueDate | date:'dd/MM/yyyy' }}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="action">
+				<th mat-header-cell *matHeaderCellDef>Ação</th>
+				<td mat-cell *matCellDef="let element">
+					<button
+						mat-icon-button
+						matTooltip="Baixa de Pagamento"
+						[disabled]="!element.active"
+						(click)="updatePlot(element.id)"
+					>
+						<mat-icon class="green-500-fg">save_alt</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
 	</div>
 </div>
