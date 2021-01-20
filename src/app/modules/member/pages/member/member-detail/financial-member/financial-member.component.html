@@ -75,7 +75,8 @@
 						[disabled]="!element.active"
 						(click)="updatePlot(element.id)"
 					>
-						<mat-icon class="green-500-fg">save_alt</mat-icon>
+						<mat-icon *ngIf="!element.active" class="green-500-fg">done</mat-icon>
+						<mat-icon *ngIf="element.active" class="green-500-fg">save_alt</mat-icon>
 					</button>
 				</td>
 			</ng-container>
