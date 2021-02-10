@@ -7,19 +7,19 @@
 		>
 			Atribuir Novo Cardapio
 		</button>
+
+		<button
+			mat-raised-button
+			(click)="clearMenuUser()"
+			matTooltip="Limpar Cardapio"
+			class="ml-8"
+		>
+			<mat-icon>delete</mat-icon>
+		</button>
 	</div>
 
 	<div fxLayout="row" *ngIf="days">
-		<mat-form-field floatlabel="always" fxFlex="50">
-			<mat-label>Nome do Cardapio</mat-label>
-			<input
-				matInput
-				disabled
-				id="menuName"
-				name="menuName"
-				[(ngModel)]="menu.name"
-			/>
-		</mat-form-field>
+		<h2>{{menuUser?.menuName}}</h2>
 	</div>
 
 	<div class="my-24 mat-subheading-1" *ngIf="days">Refeições</div>

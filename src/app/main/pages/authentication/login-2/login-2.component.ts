@@ -63,7 +63,7 @@ export class Login2Component implements OnInit {
                     console.log("RESPONSE :", response)
                 },
                 error => {
-                    console.log("ERROR :", error.error.message)
+                    alert("ERROR :" + error.error.message)
                 }
             )
 

@@ -21,4 +21,8 @@ export class MenuUserService {
     updateRating(data: { menuUserItemImageId: number, rating: number }) {
         return this.http.put(`${environment.api_url}/menuUser/menuItemImage`, data);
     }
+
+    removeByUserId(id: number) {
+        return this.http.delete(`${environment.api_url}/menuUser/removeByUserId/${id}`)
+    }
 }
