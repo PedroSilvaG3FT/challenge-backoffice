@@ -30,4 +30,8 @@ export class UserService {
     delete(id: number) {
         return this.http.delete(`${environment.api_url}/user/${id}`)
     }
+
+    reprove(id: number) {
+        return this.http.delete(`${environment.api_url}/user/reprove/${id}`)
+    }
 }

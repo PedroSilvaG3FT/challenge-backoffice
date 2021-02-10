@@ -179,14 +179,9 @@
 					</div>
 
 					<div fxLayout="row">
-						<mat-form-field floatlabel="always" fxFlex="50">
-							<mat-label>Observações</mat-label>
-							<textarea
-								matInput
-								matAutosizeMinRows="3"
-								[(ngModel)]="member.comments"
-							></textarea>
-						</mat-form-field>
+						<button mat-raised-button color="accent" (click)="removeUser()">
+							Remover Usuario
+						</button>
 					</div>
 				</div>
 			</mat-tab>

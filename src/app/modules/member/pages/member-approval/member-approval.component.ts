@@ -29,6 +29,7 @@ export class MemberApprovalComponent implements OnInit {
             .subscribe(
                 response => {
                     this.dataSource = response;
+                    // this.dataSource = this.dataSource.filter(user => !user.acceptTerm)
                 },
                 error => console.log("ERROR :", error)
             )
@@ -39,6 +40,19 @@ export class MemberApprovalComponent implements OnInit {
         
         this.userService
             .update(member)
+            .subscribe(
+                response => {
+                    this.setDataSource();
+                },
+                error => {
+                    console.log("ERROR :", error);
+                }
+            )
+    }
+
+    reproveMember(id) {
+        this.userService
+            .reprove(id)
             .subscribe(
                 response => {
                     this.setDataSource();

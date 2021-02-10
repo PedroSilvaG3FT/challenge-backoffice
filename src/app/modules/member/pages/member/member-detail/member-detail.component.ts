@@ -61,4 +61,16 @@ export class MemberDetailComponent implements OnInit {
                 error => alert("Erro ao atualizar")
             )
     }
+
+    removeUser() {
+        this.userService
+            .delete(this.userId)
+            .subscribe(
+                response => {
+                    alert("Removido com Sucesso");
+                    this.router.navigate(['member/list'])
+                },
+                error => alert("Erro ao atualizar")
+            )
+    }
 }
