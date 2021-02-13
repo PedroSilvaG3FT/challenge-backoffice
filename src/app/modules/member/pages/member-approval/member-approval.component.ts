@@ -28,7 +28,8 @@ export class MemberApprovalComponent implements OnInit {
             .getAll(params)
             .subscribe(
                 response => {
-                    this.dataSource = response.filter(user => !user.acceptTerm)
+                    console.log("RESPONSE :", response);
+                    this.dataSource = response.filter(user => !user.payday)
                 },
                 error => console.log("ERROR :", error)
             )

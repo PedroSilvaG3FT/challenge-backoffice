@@ -22,7 +22,7 @@
 		<h2>{{menuUser?.menuName}}</h2>
 	</div>
 
-	<div class="my-24 mat-subheading-1" *ngIf="days">Refeições</div>
+	<div class="my-24 mat-subheading-1" *ngIf="days.length">Refeições</div>
 
 	<div *ngFor="let day of days; let iDay = index">
 		<mat-card class="my-12">

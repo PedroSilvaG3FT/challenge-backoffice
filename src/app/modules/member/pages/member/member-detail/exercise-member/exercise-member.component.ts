@@ -33,7 +33,6 @@ export class ExerciseMemberComponent implements OnInit {
             .getByUserId(this.userId)
             .subscribe(
                 response => {
-                    console.log(response);
                     this.days = response;
                     this.currtenDayId = this.days.length + 1;
                 },
@@ -61,6 +60,7 @@ export class ExerciseMemberComponent implements OnInit {
             .create(createExercices)
             .subscribe(
                 response => {
+                    alert(response.message || "Salvo com sucesso")
                     console.log(response)
                 },
                 error => console.error("ERROR :", error)

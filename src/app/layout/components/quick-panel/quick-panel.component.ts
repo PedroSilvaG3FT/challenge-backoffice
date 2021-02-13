@@ -54,6 +54,11 @@ export class QuickPanelComponent implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((response: any) => {
                 this.events = response;
+                this.events = [
+                    { title: 'Avaliar Peso dos usuários', detail: ''},
+                    { title: 'Avaliar Cardapios', detail: ''},
+                    { title: 'Avaliar Exercicios', detail: ''},
+                ];
             });
 
         // Subscribe to the notes
