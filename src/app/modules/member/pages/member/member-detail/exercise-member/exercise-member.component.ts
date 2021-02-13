@@ -60,7 +60,7 @@ export class ExerciseMemberComponent implements OnInit {
             .create(createExercices)
             .subscribe(
                 response => {
-                    alert(response.message || "Salvo com sucesso")
+                    alert("Salvo com sucesso")
                     console.log(response)
                 },
                 error => console.error("ERROR :", error)
