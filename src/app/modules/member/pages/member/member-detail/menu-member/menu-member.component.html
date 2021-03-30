@@ -52,7 +52,6 @@
 						</div>
 
 						<div class="image-container">
-
 							<img
 								*ngIf="meal.imageItem; else other_content"
 								src="{{meal.imageItem}}"
@@ -68,8 +67,8 @@
 						</div>
 
 						<div
+							fxLayout="column" 
 							class="footer-card-meal"
-							fxLayout="flex"
 							fxLayoutAlign="center center"
 						>
 							<mat-button-toggle-group
@@ -91,6 +90,17 @@
 									<mat-icon>mood</mat-icon>
 								</mat-button-toggle>
 							</mat-button-toggle-group>
+
+							<mat-form-field class="textarea-content">
+								<textarea matInput 
+									maxlength="200"
+									placeholder="Feedback"
+									[(ngModel)]="meal.feedback"
+									[disabled]="!meal.imageItem"
+									(blur)="onChangeFeedback(meal)"
+								>
+								</textarea>
+							</mat-form-field>
 						</div>
 					</mat-card>
 				</div>

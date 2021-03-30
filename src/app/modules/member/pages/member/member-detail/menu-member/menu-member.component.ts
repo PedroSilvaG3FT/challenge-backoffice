@@ -75,11 +75,11 @@ export class MenuMemberComponent implements OnInit {
             )
     }
 
-    onChangeRating(value, itemId): void {        
+    onChangeRating(value, itemId): void { 
         this.menuUserService
             .updateRating({
                 menuUserItemImageId: itemId,
-                rating: value
+                rating: Number(value)
             })
             .subscribe(
                 response => {
@@ -91,6 +91,22 @@ export class MenuMemberComponent implements OnInit {
             )
     }
 
+    onChangeFeedback(meal): void {
+        this.menuUserService
+            .updateFeedback({
+                menuUserItemImageId: meal.menuUserItemImageId,
+                feedback: meal.feedback
+            })
+            .subscribe(
+                response => {
+                    console.log("RESPONSE :", response);
+                },
+                error => {
+                    console.log("ERROR :", error)
+                }
+            )
+    }
+ 
     clearMenuUser(){
         this.menuUserService
             .removeByUserId(this.userId)

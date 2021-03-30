@@ -48,8 +48,9 @@ export class ExerciseMemberComponent implements OnInit {
                     dayId: day.dayId,
                     exercices: day.exercices.map(exercices => {
                         return {
-                            amount: exercices.amount,
-                            exercice: exercices.exercice.id
+                            amount: exercices.amount || null,
+                            exercice: exercices.exercice?.id || null,
+                            linkUrl: exercices.linkUrl || null
                         }
                     })
                 }
@@ -102,7 +103,7 @@ export class ExerciseMemberComponent implements OnInit {
 
     addExercice(day, indexDay) {
         const newExercice: ItemExerciceMemberInterface = {
-            amount: 0,
+            amount: '',
             exercice: null
         } 
 
@@ -117,7 +118,14 @@ export class ExerciseMemberComponent implements OnInit {
         this.days[indexDay].exercices[indexExercice].exercice = result;
     }
 
-    onChangeAmount(result, indexDay: number, indexExercice: number) {
-        this.days[indexDay].exercices[indexExercice].amount = result;
+    onChangeType(indexDay: number, indexExercice: number) {
+       const exercice = this.days[indexDay].exercices[indexExercice]
+
+       if(exercice.isLink) {
+           exercice.amount = null,
+           exercice.exercice = null
+       } else {
+           exercice.linkUrl = ''
+       }
     }
 }

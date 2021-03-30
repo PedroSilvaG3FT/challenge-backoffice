@@ -21,5 +21,6 @@ export interface MenuMealInterfaceDTO {
     id?: number,
     typeMealId: number,
     name: string,
-    descripition: string
+    descripition: string,
+    feedback?: string
 }

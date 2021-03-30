@@ -72,7 +72,15 @@
 
 			<div *ngFor="let exercice of day.exercices; let iExercice = index">
 				<div fxLayout="row" fxLayoutAlign="start center">
+					<mat-slide-toggle 
+						class="mr-16" 
+						[(ngModel)]="exercice.isLink"
+						(change)="onChangeType(iDay, iExercice)">
+						{{ exercice.isLink ? 'Link' : 'Exercicio' }}
+					</mat-slide-toggle>
+
 					<app-exercice-select
+						*ngIf="!exercice.isLink"
 						[value]="exercice?.exercice?.name"
 						(changedValue)="onChangeExercice($event, iDay, iExercice)"
 						fxFlex="50"
@@ -80,6 +88,7 @@
 					</app-exercice-select>
 
 					<mat-form-field
+						*ngIf="!exercice.isLink"
 						floatlabel="always"
 						fxFlex="15"
 						class="ml-8"
@@ -89,9 +98,21 @@
 							matInput
 							id="amount"
 							name="amount"
-							type="number"
-							(ngModelChange)="onChangeAmount($event, iDay, iExercice)"
-							[ngModel]="exercice.amount"
+							[(ngModel)]="exercice.amount"
+						/>
+					</mat-form-field>
+
+					<mat-form-field
+						fxFlex="70"
+						floatlabel="always"
+						*ngIf="exercice.isLink"
+					>
+						<mat-label>URL</mat-label>
+						<input
+							matInput
+							id="linkUrl"
+							name="linkUrl"
+							[(ngModel)]="exercice.linkUrl"
 						/>
 					</mat-form-field>
 

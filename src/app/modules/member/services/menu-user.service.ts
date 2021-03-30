@@ -22,6 +22,10 @@ export class MenuUserService {
         return this.http.put(`${environment.api_url}/menuUser/menuItemImage`, data);
     }
 
+    updateFeedback(data: { menuUserItemImageId: number, feedback: string }) {
+        return this.http.put(`${environment.api_url}/menuUser/menuItemImage`, data);
+    }
+
     removeByUserId(id: number) {
         return this.http.delete(`${environment.api_url}/menuUser/removeByUserId/${id}`)
     }

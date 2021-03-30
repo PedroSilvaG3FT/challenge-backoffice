@@ -6,7 +6,9 @@ export interface DayExerciceMemberInterface {
 
 export interface ItemExerciceMemberInterface {
     id?: number,
-    amount: number,
+    amount: string,
+    isLink?: boolean,
+    linkUrl?: string,
     exercice?: {
         id: number,
         name: string,
@@ -19,7 +21,7 @@ export interface ExerciceUserInterfaceDTO {
     days: {
         dayId: number,
         exercices: {
-            amount: number,
+            amount: string,
             exercice: number
         }[]
 

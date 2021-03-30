@@ -25,13 +25,23 @@
     	justify-content: center;
 
 		img {
-			object-fit: contain;
-			border-radius: 8px;
 			max-width: 175px;
+			object-fit: cover;
+			border-radius: 8px;
+			filter: grayscale(75%)
 		}
 	}
 
 	.footer-card-meal {
 		padding: 10px 0px;
+
+		.textarea-content {
+			padding: 10px 0 10px 0;
+			max-width: 82%;
+
+			textarea {
+				resize: none !important;
+			}
+		}
 	}
 }
