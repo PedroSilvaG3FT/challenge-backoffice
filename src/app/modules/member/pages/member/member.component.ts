@@ -43,6 +43,7 @@ export class MemberComponent implements OnInit {
   setDataSource(params?: any) {
     this.userService.getAll(params).subscribe(
       (response) => {
+        console.log("RESPONSE :", response.length)
         this.dataSourceNew.data = response;
         this.dataSourceNew.paginator = this.paginator;
       },

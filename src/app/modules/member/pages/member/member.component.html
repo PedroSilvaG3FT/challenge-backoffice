@@ -16,13 +16,12 @@
     <div class="content-card p-24">
       <mat-button-toggle-group
         name="isActive"
-		[value]="isActive"
+		    [value]="isActive"
         aria-label="Ativos"
         (change)="onSelectFilter($event.value)"
       >
         <mat-button-toggle [value]="true">Ativos</mat-button-toggle>
         <mat-button-toggle [value]="false">Inativos</mat-button-toggle>
-        <mat-button-toggle [value]="null">Todos</mat-button-toggle>
       </mat-button-toggle-group>
 
       <div class="content" fxFlex fxLayout="column">

@@ -21,4 +21,5 @@ export interface MemberInterface {
     dateCreation: Date;
 
     currentWeight?: number;
+    accessCode?: string;
 }
