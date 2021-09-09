@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MemberInterface } from 'app/modules/member/interfaces/member.interface';
 import { UserService } from 'app/modules/member/services/user.service';
 import { AngularEditorConfigShared } from 'app/shared/config/angular-editor/angular-editor-config';
+import { differenceInDays } from 'date-fns';
 
 @Component({
     selector: 'app-member-detail',
     templateUrl: './member-detail.component.html',
 })
+
 export class MemberDetailComponent implements OnInit {
     public title: string = "Detalhes Membro";
     public displayedColumns: string[] = ['id', 'name', 'initalWeight', 'currentWeight', 'goalWeek', 'active', 'action'];
@@ -27,6 +29,13 @@ export class MemberDetailComponent implements OnInit {
     ngOnInit(): void { 
         this.userId = this.activatedRoute.snapshot.params.id;
         this._getUser();
+    }
+
+    get currentDay() {
+        const _initalDay = new Date(this.member.dateApproval);
+        const _currentDay = new Date();
+        
+        return differenceInDays(_currentDay, _initalDay);
     }
 
     _getUser() {
@@ -62,15 +71,20 @@ export class MemberDetailComponent implements OnInit {
             )
     }
 
-    removeUser() {
+    updateStatusUser() {
+        const memberUpdateDTO: MemberInterface = {
+            id: Number(this.member.id),
+            active: !this.member.active
+        } as MemberInterface;
+
         this.userService
-            .delete(this.userId)
-            .subscribe(
-                response => {
-                    alert("Removido com Sucesso");
-                    this.router.navigate(['member/list'])
-                },
-                error => alert("Erro ao atualizar")
-            )
+        .update(memberUpdateDTO)
+        .subscribe(
+            () => {
+                alert("Atualizado com Sucesso")
+                this._getUser()
+            },
+            () => alert("Erro ao atualizar")
+        )
     }
 }

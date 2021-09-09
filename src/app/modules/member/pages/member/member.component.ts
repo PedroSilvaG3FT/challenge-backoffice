@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { format } from "date-fns";
 import { fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { UserService } from "../../services/user.service";
@@ -11,6 +12,7 @@ import { UserService } from "../../services/user.service";
   templateUrl: "./member.component.html",
   styleUrls: ["./member.component.scss"],
 })
+
 export class MemberComponent implements OnInit {
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -26,7 +28,7 @@ export class MemberComponent implements OnInit {
     "currentWeight",
     "goalWeek",
     "goalWeight",
-    "active",
+    "dateApproval",
     "action",
   ];
 
@@ -53,6 +55,16 @@ export class MemberComponent implements OnInit {
 
   _filterDataSource() {
     const filterValue: string = this.filter.nativeElement.value;
+
+    if(filterValue.includes("/")) {
+      this.dataSourceNew.filterPredicate = (data: any) => { 
+          const dateParse = new Date(data.dateApproval);
+          data.dateFilter = format(dateParse, "dd/MM/yyy hh:mm:ss");
+
+          return data.dateFilter.indexOf(filterValue) != -1;
+      };
+    }
+    
     this.dataSourceNew.filter = filterValue;
   }
 

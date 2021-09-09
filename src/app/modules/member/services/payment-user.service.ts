@@ -16,6 +16,10 @@ export class PaymentUserService {
         return this.http.get<PaymentMemberInterface[]>(`${environment.api_url}/${this.pathController}/user/${userId}`);
     }
 
+    create(data: { userId: number, payday: number, paymentId: number }) {
+        return this.http.post(`${environment.api_url}/${this.pathController}`, data);
+    }
+
     update(data: { id: number, paymentId: number, active: boolean }) {
         return this.http.put(`${environment.api_url}/${this.pathController}`, data);
     }

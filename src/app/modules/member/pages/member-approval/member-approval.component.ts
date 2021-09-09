@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MemberInterface } from '../../interfaces/member.interface';
+import { PaymentUserService } from '../../services/payment-user.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class MemberApprovalComponent implements OnInit {
     public dataSource: any[] = [];
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private paymentUserService: PaymentUserService,
     ) { }
 
     ngOnInit(): void { 
@@ -28,21 +31,29 @@ export class MemberApprovalComponent implements OnInit {
             .getAll(params)
             .subscribe(
                 response => {
-                    console.log("RESPONSE :", response);
                     this.dataSource = response.filter(user => !user.payday)
                 },
                 error => console.log("ERROR :", error)
             )
     }
 
-    approveMember(member) {
+    approveMember(member: MemberInterface) {
+        const currentDate = new Date()
+
+        member.paymentId = 1
         member.active = true;
+        member.dateApproval = currentDate
+        member.payday = currentDate.getDate()
         
         this.userService
             .update(member)
             .subscribe(
                 response => {
-                    this.setDataSource();
+                    this.paymentUserService.create({
+                        userId: member.id,
+                        payday: member.payday,
+                        paymentId: member.paymentId
+                    }).subscribe(() => this.setDataSource())
                 },
                 error => {
                     console.log("ERROR :", error);

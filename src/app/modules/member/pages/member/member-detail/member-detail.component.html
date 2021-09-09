@@ -13,7 +13,11 @@
 				<span class="secondary-text">Detalhes Membro</span>
 			</div>
 
-			<div class="h2 mt-16">{{ member.name || title }}</div>
+			<div class="h2 mt-16">
+				{{ member.name || title }}
+
+				<b>(Dia {{currentDay}} de 90)</b>
+			</div>
 
 			<div class="h4">Código de Acesso: <b>{{ member.accessCode }}</b></div>
 		</div>
@@ -181,8 +185,8 @@
 					</div>
 
 					<div fxLayout="row">
-						<button mat-raised-button color="accent" (click)="removeUser()">
-							Remover Usuario
+						<button mat-raised-button color="accent" (click)="updateStatusUser()">
+							{{ member.active ? 'Inativar': 'Reativar' }} Usuário
 						</button>
 					</div>
 				</div>
