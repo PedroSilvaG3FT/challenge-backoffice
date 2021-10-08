@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     hmr       : false,
-    api_url: 'https://challenge-api-com.umbler.net',
+    api_url: 'http://challenge-api-com.umbler.net',
 };
