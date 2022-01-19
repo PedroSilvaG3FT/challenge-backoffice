@@ -58,6 +58,7 @@ export class MemberDetailComponent implements OnInit {
             id: Number(this.member.id),
             goalWeek: Number(this.member.goalWeek),
             goalWeight: Number(this.member.goalWeight),
+            startingWeight: Number(this.member.startingWeight),
         } as MemberInterface;
 
         this.userService
@@ -74,8 +75,11 @@ export class MemberDetailComponent implements OnInit {
     updateStatusUser() {
         const memberUpdateDTO: MemberInterface = {
             id: Number(this.member.id),
-            active: !this.member.active
+            active: !this.member.active,
         } as MemberInterface;
+
+        if(memberUpdateDTO.active) 
+            memberUpdateDTO.dateApproval = new Date()
 
         this.userService
         .update(memberUpdateDTO)

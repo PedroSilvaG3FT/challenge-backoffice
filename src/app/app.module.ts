@@ -61,7 +61,6 @@ const appRoutes: Routes = [
     HttpClientModule,
     TranslateModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-
     InMemoryWebApiModule.forRoot(FakeDbService, {
       delay: 0,
       passThruUnknownUrl: true,

@@ -16,7 +16,7 @@
     <div class="content-card p-24">
       <mat-button-toggle-group
         name="isActive"
-		    [value]="isActive"
+        [value]="isActive"
         aria-label="Ativos"
         (change)="onSelectFilter($event.value)"
       >
@@ -43,35 +43,67 @@
           <ng-container matColumnDef="startingWeight">
             <th mat-header-cell *matHeaderCellDef>Peso Inicial</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.startingWeight || "--" }} Kg
+              <input
+                type="number"
+                name="startingWeight"
+                matTooltip="Editar Peso"
+                matTooltipPosition="right"
+                (blur)="updateWeight(element, $event)"
+                [(ngModel)]="element.startingWeight"
+              />
+              <span>Kg</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="currentWeight">
             <th mat-header-cell *matHeaderCellDef>Peso Atual</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.currentWeight || "--" }} Kg
+              <input
+                type="number"
+                name="currentWeight"
+                matTooltip="Editar Peso"
+                matTooltipPosition="right"
+                (blur)="updateWeight(element, $event)"
+                [(ngModel)]="element.currentWeight"
+              />
+              <span>Kg</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="goalWeek">
             <th mat-header-cell *matHeaderCellDef>Meta da semana</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.goalWeek || "--" }} Kg
+              <input
+                type="number"
+                name="goalWeek"
+                matTooltip="Editar Peso"
+                matTooltipPosition="right"
+                (blur)="updateWeight(element, $event)"
+                [(ngModel)]="element.goalWeek"
+              />
+              <span>Kg</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="goalWeight">
             <th mat-header-cell *matHeaderCellDef>Meta Final</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.goalWeight || "--" }} Kg
+              <input
+                type="number"
+                name="goalWeight"
+                matTooltip="Editar Peso"
+                matTooltipPosition="right"
+                (blur)="updateWeight(element, $event)"
+                [(ngModel)]="element.goalWeight"
+              />
+              <span>Kg</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="dateApproval">
             <th mat-header-cell *matHeaderCellDef>Data Aprovação</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.dateApproval | date:'dd/MM/yyyy' }}
+              {{ element.dateApproval | date: "dd/MM/yyyy" }}
             </td>
           </ng-container>
 

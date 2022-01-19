@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { format } from "date-fns";
 import { fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { MemberInterface } from "../../interfaces/member.interface";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -45,7 +46,6 @@ export class MemberComponent implements OnInit {
   setDataSource(params?: any) {
     this.userService.getAll(params).subscribe(
       (response) => {
-        console.log("RESPONSE :", response.length)
         this.dataSourceNew.data = response;
         this.dataSourceNew.paginator = this.paginator;
       },
@@ -75,5 +75,31 @@ export class MemberComponent implements OnInit {
   onSelectFilter(active: boolean) {
       const filterDTO = { active }
       this.setDataSource(filterDTO);
+  }
+
+  updateWeight(member: MemberInterface, event: Event) {
+    
+    const { id, name, goalWeek, goalWeight, startingWeight } = member
+
+    const memberUpdateDTO: MemberInterface = {
+        id,
+        goalWeek,
+        goalWeight,
+        startingWeight,
+    } as MemberInterface;
+
+    this.userService
+        .update(memberUpdateDTO)
+        .subscribe(
+            () => this.setSuccesMessage(event),
+            () => alert(`Erro ao atualizar peso de ${id} - ${name}`)
+        )
+  }
+
+  setSuccesMessage({ target }: Event): void {
+    const { parentElement } = target as HTMLInputElement
+
+    parentElement.classList.add("success")
+    setTimeout(() => parentElement.classList.remove("success"), 5000)
   }
 }

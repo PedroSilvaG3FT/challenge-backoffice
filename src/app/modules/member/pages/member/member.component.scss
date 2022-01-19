@@ -10,3 +10,51 @@ mat-button-toggle-group {
     border: solid 1px rgba(255, 255, 255, 0.12);
   }
 }
+
+td {
+  > input {
+    width: 40px;
+    color: white;
+    font-size: 15px;
+    padding: 8px 0px;
+    text-align: right;
+    background: transparent;
+
+    &:focus {
+      color: #e91e63;
+    }
+  }
+
+  &.success {
+    color: #52ae32 !important;
+
+    > input {
+      color: #52ae32 !important;
+    }
+
+    > span::after {
+      content: "Salvo";
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      bottom: 14px;
+      font-size: 8px;
+      font-weight: 600;
+      padding: 0px 4px;
+      color: #52ae32;
+      border-radius: 2px;
+      background: #fff;
+      position: relative;
+    }
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
