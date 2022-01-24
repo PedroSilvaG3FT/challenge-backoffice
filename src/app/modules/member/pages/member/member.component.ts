@@ -13,7 +13,6 @@ import { UserService } from "../../services/user.service";
   templateUrl: "./member.component.html",
   styleUrls: ["./member.component.scss"],
 })
-
 export class MemberComponent implements OnInit {
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -56,15 +55,15 @@ export class MemberComponent implements OnInit {
   _filterDataSource() {
     const filterValue: string = this.filter.nativeElement.value;
 
-    if(filterValue.includes("/")) {
-      this.dataSourceNew.filterPredicate = (data: any) => { 
-          const dateParse = new Date(data.dateApproval);
-          data.dateFilter = format(dateParse, "dd/MM/yyy hh:mm:ss");
+    if (filterValue.includes("/")) {
+      this.dataSourceNew.filterPredicate = (data: any) => {
+        const dateParse = new Date(data.dateApproval);
+        data.dateFilter = format(dateParse, "dd/MM/yyy hh:mm:ss");
 
-          return data.dateFilter.indexOf(filterValue) != -1;
+        return data.dateFilter.indexOf(filterValue) != -1;
       };
     }
-    
+
     this.dataSourceNew.filter = filterValue;
   }
 
@@ -73,33 +72,42 @@ export class MemberComponent implements OnInit {
   }
 
   onSelectFilter(active: boolean) {
-      const filterDTO = { active }
-      this.setDataSource(filterDTO);
+    const filterDTO = { active };
+    this.setDataSource(filterDTO);
   }
 
   updateWeight(member: MemberInterface, event: Event) {
-    
-    const { id, name, goalWeek, goalWeight, startingWeight } = member
+    const { id, name, goalWeek, goalWeight, startingWeight } = member;
 
     const memberUpdateDTO: MemberInterface = {
-        id,
-        goalWeek,
-        goalWeight,
-        startingWeight,
+      id,
+      goalWeek,
+      goalWeight,
+      startingWeight,
     } as MemberInterface;
 
+    this.userService.update(memberUpdateDTO).subscribe(
+      () => this.setSuccesMessage(event),
+      () => alert(`Erro ao atualizar peso de ${id} - ${name}`)
+    );
+  }
+
+  updateCurrentWeight(member: MemberInterface, event: Event) {
     this.userService
-        .update(memberUpdateDTO)
-        .subscribe(
-            () => this.setSuccesMessage(event),
-            () => alert(`Erro ao atualizar peso de ${id} - ${name}`)
-        )
+      .createCurrentWeight({
+        userId: Number(member.id),
+        weight: Number(member.currentWeight),
+      })
+      .subscribe(
+        () => this.setSuccesMessage(event),
+        () => alert(`Erro ao atualizar peso de ${member.id} - ${member.name}`)
+      );
   }
 
   setSuccesMessage({ target }: Event): void {
-    const { parentElement } = target as HTMLInputElement
+    const { parentElement } = target as HTMLInputElement;
 
-    parentElement.classList.add("success")
-    setTimeout(() => parentElement.classList.remove("success"), 5000)
+    parentElement.classList.add("success");
+    setTimeout(() => parentElement.classList.remove("success"), 5000);
   }
 }

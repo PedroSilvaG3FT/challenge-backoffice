@@ -139,6 +139,7 @@
 								matInput
 								id="currentWeight"
 								name="currentWeight"
+								(blur)="updateCurrentWeight()"
 								[(ngModel)]="member.currentWeight"
 							/>
 						</mat-form-field>

@@ -91,4 +91,11 @@ export class MemberDetailComponent implements OnInit {
             () => alert("Erro ao atualizar")
         )
     }
+
+    updateCurrentWeight() {
+        this.userService.createCurrentWeight({
+            userId: Number(this.member.id),
+            weight: this.member.currentWeight
+        }).subscribe(() => {})
+    }
 }

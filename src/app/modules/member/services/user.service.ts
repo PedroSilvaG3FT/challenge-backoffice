@@ -34,4 +34,8 @@ export class UserService {
     reprove(id: number) {
         return this.http.delete(`${environment.api_url}/user/reprove/${id}`)
     }
+
+    createCurrentWeight(data) {
+        return this.http.post(`${environment.api_url}/userWeight`, data)
+    }
 }
