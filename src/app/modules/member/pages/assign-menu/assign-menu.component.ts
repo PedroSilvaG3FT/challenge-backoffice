@@ -50,7 +50,10 @@ export class AssignMenuComponent implements OnInit {
     const data = { menuName, members: this.members };
     const dialogRef = this.dialog.open(AssignMenuMemberComponent, { data });
 
-    dialogRef.afterClosed().subscribe((result) => this.assignMenu(result, id));
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+      this.assignMenu(result, id);
+    });
   }
 
   assignMenu(members, menuId: number) {
