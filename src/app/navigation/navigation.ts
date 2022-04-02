@@ -66,6 +66,13 @@ export const navigation: FuseNavigation[] = [
             icon: "restaurant",
             url: "member/assign-menu",
           },
+          {
+            id: "assignMenu",
+            title: "Atribuir Exercicio",
+            type: "item",
+            icon: "directions_run",
+            url: "member/assign-exercice",
+          },
         ],
       },
     ],

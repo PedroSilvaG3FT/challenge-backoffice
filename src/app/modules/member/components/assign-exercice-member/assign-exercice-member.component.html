@@ -1,0 +1,249 @@
+<div mat-dialog-title id="header">
+  <h1 matTooltip="Exercicios">Exercicios</h1>
+
+  <div>
+    <button mat-raised-button (click)="handleCancel()">Cancelar</button>
+
+    <button mat-raised-button color="accent" (click)="handleSave()">
+      Salvar
+    </button>
+  </div>
+</div>
+
+<div mat-dialog-content style="min-width: 80vw">
+  <div class="content p-24">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button
+        *ngIf="!isWeek"
+        mat-raised-button
+        (click)="clearExercices()"
+        matTooltip="Limpar Exercicios"
+        class="mr-8"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button
+        *ngIf="!isWeek"
+        mat-raised-button
+        (click)="getExercicesMember()"
+        matTooltip="Resetar Alterações"
+      >
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        class="ml-auto"
+        (click)="toggleIsWeek()"
+      >
+        {{ isWeekLabel }}
+      </button>
+    </div>
+
+    <article *ngIf="!isWeek">
+      <div *ngFor="let day of days; let iDay = index">
+        <mat-card class="my-12">
+          <div
+            fxLayout="flex"
+            class="row mat-subheading-1"
+            fxLayoutAlign="space-between center"
+          >
+            <div>
+              {{ day.name }}
+
+              <button
+                mat-icon-button
+                color="primary"
+                matTooltip="Adicionar Exercício"
+                (click)="addExercice(day, iDay)"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <button
+              mat-icon-button
+              color="primary"
+              matTooltip="Remover Dia"
+              (click)="removeDay(iDay)"
+              *ngIf="iDay === days.length - 1"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          <div
+            *ngIf="!day?.exercices?.length"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <span class="mat-caption">
+              - Sem exercicios cadastrados para {{ day.name }} -
+            </span>
+          </div>
+
+          <div *ngFor="let exercice of day.exercices; let iExercice = index">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-slide-toggle
+                class="mr-16"
+                [(ngModel)]="exercice.isLink"
+                (change)="onChangeType(iDay, iExercice)"
+              >
+                {{ exercice.isLink ? "Link" : "Exercicio" }}
+              </mat-slide-toggle>
+
+              <app-exercice-select
+                *ngIf="!exercice.isLink"
+                [value]="exercice?.exercice?.name"
+                (changedValue)="onChangeExercice($event, iDay, iExercice)"
+                fxFlex="50"
+              >
+              </app-exercice-select>
+
+              <mat-form-field
+                *ngIf="!exercice.isLink"
+                floatlabel="always"
+                fxFlex="15"
+                class="ml-8"
+              >
+                <mat-label>Quantidade</mat-label>
+                <input
+                  matInput
+                  id="amount"
+                  name="amount"
+                  [(ngModel)]="exercice.amount"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                fxFlex="70"
+                floatlabel="always"
+                *ngIf="exercice.isLink"
+              >
+                <mat-label>URL</mat-label>
+                <input
+                  matInput
+                  id="linkUrl"
+                  name="linkUrl"
+                  [(ngModel)]="exercice.linkUrl"
+                />
+              </mat-form-field>
+
+              <button
+                mat-icon-button
+                color="warn"
+                matTooltip="Remover Exercício"
+                (click)="removeExercice(iDay, iExercice)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!days.length">
+        <span class="mat-subheading-2 my-0">
+          - Sem Exercicios cadastrados -
+        </span>
+        <span class="mat-caption mt-0 mb-32">
+          (Adicione dias para incluir exercicios)
+        </span>
+      </div>
+
+      <div fxLayoutAlign="center center">
+        <button
+          mat-raised-button
+          class="bg-gradient-primary"
+          (click)="addDay()"
+        >
+          Adicionar Dia
+        </button>
+      </div>
+    </article>
+
+    <section *ngIf="isWeek">
+      <div>
+        <mat-card class="my-12">
+          <div
+            fxLayout="flex"
+            class="row mat-subheading-1"
+            fxLayoutAlign="start center"
+          >
+            Exercicios para semana
+            <div>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="addExerciceWeek()"
+                matTooltip="Adicionar Exercício"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div *ngFor="let exercice of week.exercices; let iExercice = index">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-slide-toggle
+                class="mr-16"
+                [(ngModel)]="exercice.isLink"
+                (change)="onChangeTypeWeek(iExercice)"
+              >
+                {{ exercice.isLink ? "Link" : "Exercicio" }}
+              </mat-slide-toggle>
+
+              <app-exercice-select
+                *ngIf="!exercice.isLink"
+                [value]="exercice?.exercice?.name"
+                (changedValue)="onChangeExercice($event, iExercice)"
+                fxFlex="50"
+              >
+              </app-exercice-select>
+
+              <mat-form-field
+                *ngIf="!exercice.isLink"
+                floatlabel="always"
+                fxFlex="15"
+                class="ml-8"
+              >
+                <mat-label>Quantidade</mat-label>
+                <input
+                  matInput
+                  id="amount"
+                  name="amount"
+                  [(ngModel)]="exercice.amount"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                fxFlex="70"
+                floatlabel="always"
+                *ngIf="exercice.isLink"
+              >
+                <mat-label>URL</mat-label>
+                <input
+                  matInput
+                  id="linkUrl"
+                  name="linkUrl"
+                  [(ngModel)]="exercice.linkUrl"
+                />
+              </mat-form-field>
+
+              <button
+                mat-icon-button
+                color="warn"
+                matTooltip="Remover Exercício"
+                (click)="removeExerciceWeek(iExercice)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </section>
+  </div>
+</div>
