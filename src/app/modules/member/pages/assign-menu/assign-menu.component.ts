@@ -6,6 +6,7 @@ import { MenuService } from "app/modules/registration/services/menu.service";
 import { MenuInterface } from "app/modules/registration/interfaces/menu.interface";
 import { AssignMenuMemberComponent } from "../../components/assign-menu-member/assign-menu-member.component";
 import { MenuUserService } from "../../services/menu-user.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "assign-menu",
@@ -18,12 +19,14 @@ export class AssignMenuComponent implements OnInit {
 
   public displayedColumns: string[] = ["id", "name", "qtdDays", "action"];
   public dataSource: MenuInterface[] = [];
+  public userType: number;
   public members = [];
 
   constructor(
     public dialog: MatDialog,
     private menuService: MenuService,
     private userService: UserService,
+    private activatedRoute: ActivatedRoute,
     private menuUserService: MenuUserService
   ) {}
 
@@ -33,10 +36,12 @@ export class AssignMenuComponent implements OnInit {
   }
 
   getMembers() {
-    this.userService.getAll({ active: true, isAdm: false }).subscribe(
-      (response) => (this.members = response),
-      (error) => console.error("ERROR :", error)
-    );
+    this.activatedRoute.data.subscribe(({ userType }) => {
+      this.userService.getAll({ active: true, userType }).subscribe(
+        (response) => (this.members = response),
+        (error) => console.error("ERROR :", error)
+      );
+    });
   }
 
   getMenus(): void {

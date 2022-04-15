@@ -18,6 +18,7 @@
         name="isActive"
         [value]="isActive"
         aria-label="Ativos"
+        *ngIf="!isFaithfulness"
         (change)="onSelectFilter($event.value)"
       >
         <mat-button-toggle [value]="true">Ativos</mat-button-toggle>

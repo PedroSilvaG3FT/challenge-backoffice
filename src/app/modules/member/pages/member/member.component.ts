@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { format } from "date-fns";
 import { fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { USER_TYPE } from "../../constants/userType.constant";
 import { MemberInterface } from "../../interfaces/member.interface";
 import { UserService } from "../../services/user.service";
 
@@ -17,6 +18,7 @@ export class MemberComponent implements OnInit {
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  public userType: number;
   public isActive: boolean = true;
   public title: string = "Membros";
   public dataSourceNew = new MatTableDataSource();
@@ -32,18 +34,37 @@ export class MemberComponent implements OnInit {
     "action",
   ];
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.getUserType();
+
     fromEvent(this.filter.nativeElement, "keyup")
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(() => this._filterDataSource());
+  }
 
-    this.setDataSource();
+  get isFaithfulness() {
+    return this.userType === USER_TYPE.faithfulness;
+  }
+
+  getUserType() {
+    this.activatedRoute.data.subscribe(({ userType }) => {
+      this.userType = userType;
+      this.setDataSource();
+    });
   }
 
   setDataSource(params?: any) {
-    this.userService.getAll(params).subscribe(
+    const paramsDTO = {
+      ...params,
+      userType: this.userType,
+    };
+    this.userService.getAll(paramsDTO).subscribe(
       (response) => {
         this.dataSourceNew.data = response;
         this.dataSourceNew.paginator = this.paginator;

@@ -6,13 +6,49 @@ import { AssignMenuComponent } from "./pages/assign-menu/assign-menu.component";
 import { AssignExerciceComponent } from "./pages/assing-exercice/assign-exercice.component";
 import { MemberDetailComponent } from "./pages/member/member-detail/member-detail.component";
 import { MemberApprovalComponent } from "./pages/member-approval/member-approval.component";
-
+import { USER_TYPE } from "./constants/userType.constant";
 const routes: Routes = [
-  { path: "list", component: MemberComponent },
-  { path: "member-detail/:id", component: MemberDetailComponent },
-  { path: "member-aproval", component: MemberApprovalComponent },
-  { path: "assign-menu", component: AssignMenuComponent },
-  { path: "assign-exercice", component: AssignExerciceComponent },
+  {
+    path: "list",
+    component: MemberComponent,
+    data: { userType: USER_TYPE.challenge },
+  },
+  {
+    path: "member-detail/:id",
+    component: MemberDetailComponent,
+    data: { userType: USER_TYPE.challenge },
+  },
+  {
+    path: "member-aproval",
+    component: MemberApprovalComponent,
+    data: { userType: USER_TYPE.challenge },
+  },
+  {
+    path: "assign-menu",
+    component: AssignMenuComponent,
+    data: { userType: USER_TYPE.challenge },
+  },
+  {
+    path: "assign-exercice",
+    component: AssignExerciceComponent,
+    data: { userType: USER_TYPE.challenge },
+  },
+
+  {
+    path: "faithfulness/list",
+    component: MemberComponent,
+    data: { userType: USER_TYPE.faithfulness },
+  },
+  {
+    path: "faithfulness/assign-menu",
+    component: AssignMenuComponent,
+    data: { userType: USER_TYPE.faithfulness },
+  },
+  {
+    path: "faithfulness/assign-exercice",
+    component: AssignExerciceComponent,
+    data: { userType: USER_TYPE.faithfulness },
+  },
 ];
 
 @NgModule({

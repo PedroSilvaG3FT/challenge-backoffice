@@ -6,6 +6,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ExerciceUserService } from "../../services/exercice-user.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { AssignExerciceMemberComponent } from "../../components/assign-exercice-member/assign-exercice-member.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "assign-exercice",
@@ -17,6 +18,7 @@ export class AssignExerciceComponent implements OnInit {
   public title: string = "Atribuir Exercicios";
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  public userType: number;
   public isActive: boolean = true;
   public dataSourceNew = new MatTableDataSource();
 
@@ -33,6 +35,7 @@ export class AssignExerciceComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private userService: UserService,
+    private activatedRoute: ActivatedRoute,
     private exerciceUserService: ExerciceUserService
   ) {}
 
@@ -44,17 +47,19 @@ export class AssignExerciceComponent implements OnInit {
     return !this.dataSourceNew.data.some(({ selected }) => selected);
   }
 
-  setDataSource(params?: any) {
-    this.userService.getAll(params).subscribe(
-      (response) => {
-        this.dataSourceNew.data = response.map((member) => ({
-          ...member,
-          selected: false,
-        }));
-        this.dataSourceNew.paginator = this.paginator;
-      },
-      (error) => console.log("ERROR :", error)
-    );
+  setDataSource() {
+    this.activatedRoute.data.subscribe(({ userType }) => {
+      this.userService.getAll({ userType }).subscribe(
+        (response) => {
+          this.dataSourceNew.data = response.map((member) => ({
+            ...member,
+            selected: false,
+          }));
+          this.dataSourceNew.paginator = this.paginator;
+        },
+        (error) => console.log("ERROR :", error)
+      );
+    });
   }
 
   openModalAssign(): void {

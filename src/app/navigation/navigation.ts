@@ -75,6 +75,36 @@ export const navigation: FuseNavigation[] = [
           },
         ],
       },
+      {
+        id: "faithfulness",
+        title: "Fidelidade",
+        translate: "NAV.ECOMMERCE",
+        type: "collapsable",
+        icon: "group",
+        children: [
+          {
+            id: "members",
+            title: "Todos",
+            type: "item",
+            icon: "list",
+            url: "member/faithfulness/list",
+          },
+          {
+            id: "assignMenu",
+            title: "Atribuir Cardapio",
+            type: "item",
+            icon: "restaurant",
+            url: "member/faithfulness/assign-menu",
+          },
+          {
+            id: "assignMenu",
+            title: "Atribuir Exercicio",
+            type: "item",
+            icon: "directions_run",
+            url: "member/faithfulness/assign-exercice",
+          },
+        ],
+      },
     ],
   },
 ];
