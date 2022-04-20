@@ -122,7 +122,7 @@ export class MemberDetailComponent implements OnInit {
       type: userType,
     } as MemberInterface;
 
-    if (userType === USER_TYPE.faithfulness)
+    if (userType === USER_TYPE.challenge)
       memberUpdateDTO.dateApproval = new Date();
 
     this.userService.update(memberUpdateDTO).subscribe(
