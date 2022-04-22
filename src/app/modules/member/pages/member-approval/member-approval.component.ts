@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatTableDataSource } from "@angular/material/table";
 import { USER_TYPE } from "../../constants/userType.constant";
 import { MemberInterface } from "../../interfaces/member.interface";
@@ -25,6 +26,7 @@ export class MemberApprovalComponent implements OnInit {
   public dataSourceNew = new MatTableDataSource();
 
   constructor(
+    private snackBar: MatSnackBar,
     private userService: UserService,
     private paymentUserService: PaymentUserService
   ) {}
@@ -60,6 +62,10 @@ export class MemberApprovalComponent implements OnInit {
 
     this.userService.update(member).subscribe(
       (response) => {
+        this.snackBar.open("Usuário Aprovado com sucesso", null, {
+          duration: 3500,
+        });
+
         this.paymentUserService
           .create({
             userId: member.id,
@@ -69,7 +75,9 @@ export class MemberApprovalComponent implements OnInit {
           .subscribe(() => this.setDataSource());
       },
       (error) => {
-        console.log("ERROR :", error);
+        this.snackBar.open("Ocorreu um erro ao aprovar o usuário", null, {
+          duration: 3500,
+        });
       }
     );
   }
@@ -77,10 +85,16 @@ export class MemberApprovalComponent implements OnInit {
   reproveMember(id) {
     this.userService.reprove(id).subscribe(
       (response) => {
+        this.snackBar.open("Usuário Reprovado com sucesso", null, {
+          duration: 3500,
+        });
+
         this.setDataSource();
       },
       (error) => {
-        console.log("ERROR :", error);
+        this.snackBar.open("Ocorreu um erro ao reprovar o usuário", null, {
+          duration: 3500,
+        });
       }
     );
   }

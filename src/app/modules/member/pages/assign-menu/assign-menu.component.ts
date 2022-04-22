@@ -7,6 +7,7 @@ import { MenuInterface } from "app/modules/registration/interfaces/menu.interfac
 import { AssignMenuMemberComponent } from "../../components/assign-menu-member/assign-menu-member.component";
 import { MenuUserService } from "../../services/menu-user.service";
 import { ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "assign-menu",
@@ -24,6 +25,7 @@ export class AssignMenuComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private menuService: MenuService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
@@ -39,7 +41,10 @@ export class AssignMenuComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ userType }) => {
       this.userService.getAll({ active: true, userType }).subscribe(
         (response) => (this.members = response),
-        (error) => console.error("ERROR :", error)
+        (error) =>
+          this.snackBar.open("Ocorreu um erro ao buscar usuários", null, {
+            duration: 3500,
+          })
       );
     });
   }
@@ -47,7 +52,10 @@ export class AssignMenuComponent implements OnInit {
   getMenus(): void {
     this.menuService.getAll().subscribe(
       (response) => (this.dataSource = response),
-      (error) => console.error("GET MENU: ", error)
+      (error) =>
+        this.snackBar.open("Ocorreu um erro ao buscar menus", null, {
+          duration: 3500,
+        })
     );
   }
 
@@ -63,8 +71,12 @@ export class AssignMenuComponent implements OnInit {
 
   assignMenu(members, menuId: number) {
     this.menuUserService.assignMenu({ members, menuId }).subscribe(
-      (response) => alert(response.message),
-      () => alert("Ocorreu um erro ao atribuir cardapio")
+      (response) =>
+        this.snackBar.open(response.message, null, { duration: 3500 }),
+      () =>
+        this.snackBar.open("Ocorreu um erro ao atribuir cardapio", null, {
+          duration: 3500,
+        })
     );
   }
 }
