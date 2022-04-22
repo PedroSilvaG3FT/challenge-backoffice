@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { USER_TYPE } from "../../constants/userType.constant";
 import { MemberInterface } from "../../interfaces/member.interface";
 import { PaymentUserService } from "../../services/payment-user.service";
@@ -10,14 +12,17 @@ import { UserService } from "../../services/user.service";
 })
 export class MemberApprovalComponent implements OnInit {
   public title: string = "Aprovação de Membros";
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public displayedColumns: string[] = [
     "id",
     "name",
     "startingWeight",
+    "data",
     "action",
   ];
   public dataSource: any[] = [];
+  public dataSourceNew = new MatTableDataSource();
 
   constructor(
     private userService: UserService,
@@ -36,7 +41,10 @@ export class MemberApprovalComponent implements OnInit {
 
     this.userService.getAll(params).subscribe(
       (response) => {
-        this.dataSource = response.filter((user) => !user.payday);
+        const filtered = response.filter((user) => !user.payday);
+        this.dataSource = filtered;
+        this.dataSourceNew.data = filtered;
+        this.dataSourceNew.paginator = this.paginator;
       },
       (error) => console.log("ERROR :", error)
     );

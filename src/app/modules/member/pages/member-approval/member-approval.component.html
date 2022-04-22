@@ -1,74 +1,77 @@
 <div class="page-layout carded left-sidebar inner-scroll">
-	<div class="top-bg accent bg-gradient-primary"></div>
+  <div class="top-bg accent bg-gradient-primary"></div>
 
-	<div class="center">
-		<div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-			<h2>{{title}}</h2>
-		</div>
+  <div class="center">
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <h2>{{ title }}</h2>
+    </div>
 
-		<div class="content-card">
-			<div class="content p-24">
-				<div fxFlex fxLayout="row">
-					<table mat-table fxFlex [dataSource]="dataSource">
-						<ng-container matColumnDef="id">
-							<th mat-header-cell *matHeaderCellDef>Id</th>
-							<td mat-cell *matCellDef="let element">
-								{{element.id}}
-							</td>
-						</ng-container>
+    <div class="content-card">
+      <div class="content p-24">
+        <div fxFlex fxLayout="row">
+          <table mat-table fxFlex [dataSource]="dataSourceNew">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Id</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.id }}
+              </td>
+            </ng-container>
 
-						<ng-container matColumnDef="name">
-							<th mat-header-cell *matHeaderCellDef>Nome</th>
-							<td
-								mat-cell
-								class="w-25-p"
-								*matCellDef="let element"
-							>
-								{{element.name}}
-							</td>
-						</ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nome</th>
+              <td mat-cell class="w-25-p" *matCellDef="let element">
+                {{ element.name }}
+              </td>
+            </ng-container>
 
-						<ng-container matColumnDef="startingWeight">
-							<th mat-header-cell *matHeaderCellDef>
-								Peso Inicial
-							</th>
-							<td mat-cell *matCellDef="let element">
-								{{element.startingWeight}}
-							</td>
-						</ng-container>
+            <ng-container matColumnDef="startingWeight">
+              <th mat-header-cell *matHeaderCellDef>Peso Inicial</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.startingWeight }}
+              </td>
+            </ng-container>
 
-						<ng-container matColumnDef="action">
-							<th mat-header-cell *matHeaderCellDef>Ação</th>
-							<td mat-cell *matCellDef="let element">
-								<button
-									mat-icon-button
-									class="green-500-fg"
-									(click)="approveMember(element)"
-								>
-									<mat-icon>check_circle_outline</mat-icon>
-								</button>
+            <ng-container matColumnDef="data">
+              <th mat-header-cell *matHeaderCellDef>Data</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.dateCreation | date: "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
 
-								<button
-									mat-icon-button
-									class="red-500-fg"
-									(click)="reproveMember(element.id)"
-								>
-									<mat-icon>close_circle_outline</mat-icon>
-								</button>
-							</td>
-						</ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Ação</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-icon-button
+                  class="green-500-fg"
+                  (click)="approveMember(element)"
+                >
+                  <mat-icon>check_circle_outline</mat-icon>
+                </button>
 
-						<tr
-							mat-header-row
-							*matHeaderRowDef="displayedColumns"
-						></tr>
-						<tr
-							mat-row
-							*matRowDef="let row; columns: displayedColumns;"
-						></tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+                <button
+                  mat-icon-button
+                  class="red-500-fg"
+                  (click)="reproveMember(element.id)"
+                >
+                  <mat-icon>close_circle_outline</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+      <mat-paginator
+        #paginator
+        [pageIndex]="0"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [length]="dataSourceNew.filteredData.length"
+      >
+      </mat-paginator>
+    </div>
+  </div>
 </div>
