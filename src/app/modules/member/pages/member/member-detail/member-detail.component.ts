@@ -123,8 +123,7 @@ export class MemberDetailComponent implements OnInit {
       active: true,
     } as MemberInterface;
 
-    if (userType === USER_TYPE.challenge)
-      memberUpdateDTO.dateApproval = new Date();
+    memberUpdateDTO.dateApproval = new Date();
 
     this.userService.update(memberUpdateDTO).subscribe(
       () => {
