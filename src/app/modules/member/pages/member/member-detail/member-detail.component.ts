@@ -120,6 +120,7 @@ export class MemberDetailComponent implements OnInit {
     const memberUpdateDTO: MemberInterface = {
       id: Number(this.member.id),
       type: userType,
+      active: true,
     } as MemberInterface;
 
     if (userType === USER_TYPE.challenge)
