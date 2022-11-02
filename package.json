@@ -14,7 +14,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start-hml": "node server.js",
-    "publish": "git push heroku master",
+    "heroku:publish": "git push heroku master",
+    "heroku:add-origin": "git remote add heroku https://git.heroku.com/challenge-ui.git ",
     "heroku-postbuild": "ng build --prod",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
