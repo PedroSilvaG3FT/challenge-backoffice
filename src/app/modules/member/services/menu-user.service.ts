@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
+import { IAssingMenuToAll } from "../interfaces/menu-user.interface";
 
 @Injectable({
   providedIn: "root",
@@ -32,5 +33,12 @@ export class MenuUserService {
 
   assignMenu(data: object) {
     return this.http.post<any>(`${environment.api_url}/menuUser/assign`, data);
+  }
+
+  assignMenuToAll(data: IAssingMenuToAll) {
+    return this.http.post<any>(
+      `${environment.api_url}/menuUser/assign/all`,
+      data
+    );
   }
 }

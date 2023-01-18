@@ -1,9 +1,8 @@
 import { fromEvent } from "rxjs";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { UserService } from "../../services/user.service";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import {
   Component,
   ElementRef,
@@ -74,7 +73,11 @@ export class AssignMenuMemberComponent implements OnInit {
 
   handleSave() {
     const memberIds = this.selectedMember.map(({ id }) => id);
-    this.dialogRef.close(memberIds);
+    this.dialogRef.close({ isSaveAll: false, memberIds });
+  }
+
+  handleSaveAll() {
+    this.dialogRef.close({ isSaveAll: true });
   }
 
   handleCancel() {

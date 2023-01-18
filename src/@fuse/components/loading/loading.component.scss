@@ -1,0 +1,16 @@
+@import "src/@fuse/scss/fuse";
+
+#fuse-loading {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  z-index: 99998;
+  position: absolute;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: #0000007e;
+}

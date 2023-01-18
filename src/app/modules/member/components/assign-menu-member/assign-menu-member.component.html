@@ -7,6 +7,15 @@
     <button mat-raised-button color="accent" (click)="handleSave()">
       Salvar
     </button>
+
+    <button
+      color="accent"
+      mat-raised-button
+      (click)="handleSaveAll()"
+      [disabled]="!!selectedMember.length"
+    >
+      Atribuir a todos
+    </button>
   </div>
 </div>
 
