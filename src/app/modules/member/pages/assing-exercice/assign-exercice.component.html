@@ -5,14 +5,26 @@
     <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
       <h2>{{ title }}</h2>
 
-      <button
-        mat-raised-button
-        color="accent"
-        [disabled]="isDisabled"
-        (click)="openModalAssign()"
-      >
-        Atribuir Exercícios
-      </button>
+      <div>
+        <button
+          class="mr-24"
+          color="accent"
+          mat-raised-button
+          [disabled]="isDisabled"
+          (click)="openModalAssign()"
+        >
+          Atribuir
+        </button>
+
+        <button
+          color="accent"
+          mat-raised-button
+          [disabled]="!isDisabled"
+          (click)="openModalAssign(true)"
+        >
+          Atribuir a Todos
+        </button>
+      </div>
     </div>
 
     <div class="content-card p-24">

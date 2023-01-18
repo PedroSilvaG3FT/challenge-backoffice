@@ -1,13 +1,11 @@
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Component, Inject, OnInit } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { ExerciceUserService } from "../../services/exercice-user.service";
+import { DayEnum } from "app/modules/registration/pages/menu/new-menu/new-menu.component";
 import {
   DayExerciceMemberInterface,
-  ExerciceUserInterfaceDTO,
   ItemExerciceMemberInterface,
 } from "../../interfaces/exercice-member.interface";
-import { DayEnum } from "app/modules/registration/pages/menu/new-menu/new-menu.component";
-import { ExerciceUserService } from "../../services/exercice-user.service";
-
 @Component({
   selector: "assign-exercice-member",
   templateUrl: "assign-exercice-member.component.html",
@@ -20,16 +18,14 @@ export class AssignExerciceMemberComponent implements OnInit {
     public dialogRef: MatDialogRef<AssignExerciceMemberComponent>
   ) {}
 
-  public isWeek: boolean = true;
   public userId: number;
   public newDay: number;
-  public currtenDayId: number = 1;
   public currentDayCopy: any;
-
+  public isWeek: boolean = true;
+  public week = { exercices: [] };
+  public currtenDayId: number = 1;
+  public exercicesWeekControl = [];
   public days: DayExerciceMemberInterface[] = [];
-  public week = {
-    exercices: [],
-  };
 
   ngOnInit() {
     this.getExercicesMember();
@@ -53,6 +49,7 @@ export class AssignExerciceMemberComponent implements OnInit {
 
     this.week.exercices.push(newExercice);
   }
+
   onChangeTypeWeek(indexExercice: number) {
     const exercice = this.week.exercices[indexExercice];
 
@@ -126,7 +123,8 @@ export class AssignExerciceMemberComponent implements OnInit {
   }
 
   onChangeExercice(result, indexDay: number, indexExercice: number) {
-    this.days[indexDay].exercices[indexExercice].exercice = result;
+    if (this.isWeek) this.week.exercices[indexExercice].exercice = result.id;
+    else this.days[indexDay].exercices[indexExercice].exercice = result.id;
   }
 
   onChangeType(indexDay: number, indexExercice: number) {

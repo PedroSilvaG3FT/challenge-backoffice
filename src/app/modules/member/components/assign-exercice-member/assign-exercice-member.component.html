@@ -198,7 +198,7 @@
               <app-exercice-select
                 *ngIf="!exercice.isLink"
                 [value]="exercice?.exercice?.name"
-                (changedValue)="onChangeExercice($event, iExercice)"
+                (changedValue)="onChangeExercice($event, 0, iExercice)"
                 fxFlex="50"
               >
               </app-exercice-select>

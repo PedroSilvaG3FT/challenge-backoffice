@@ -7,6 +7,7 @@ import { ExerciceUserService } from "../../services/exercice-user.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { AssignExerciceMemberComponent } from "../../components/assign-exercice-member/assign-exercice-member.component";
 import { ActivatedRoute } from "@angular/router";
+import { LoadingService } from "@fuse/components/loading/loading.service";
 
 @Component({
   selector: "assign-exercice",
@@ -36,6 +37,7 @@ export class AssignExerciceComponent implements OnInit {
     public dialog: MatDialog,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
+    private loadingService: LoadingService,
     private exerciceUserService: ExerciceUserService
   ) {}
 
@@ -49,6 +51,7 @@ export class AssignExerciceComponent implements OnInit {
 
   setDataSource() {
     this.activatedRoute.data.subscribe(({ userType }) => {
+      this.userType = Number(userType);
       this.userService.getAll({ userType }).subscribe(
         (response) => {
           this.dataSourceNew.data = response.map((member) => ({
@@ -62,28 +65,50 @@ export class AssignExerciceComponent implements OnInit {
     });
   }
 
-  openModalAssign(): void {
+  openModalAssign(isAssingToAll = false): void {
     const dialogRef = this.dialog.open(AssignExerciceMemberComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;
-      this.assignExercice(result);
+      else if (isAssingToAll) this.assignExerciceToAll(result);
+      else if (result.length) this.assignExercice(result);
+
+      console.log("RESULT :", result);
+      // this.assignExercice(result);
     });
   }
 
   assignExercice(days) {
+    this.loadingService.show("Atribuindo exercícios");
+
     const usersId = this.dataSourceNew.data
       .filter(({ selected }) => selected)
       .map(({ id }) => id);
 
     this.exerciceUserService.assignToMembers({ usersId, days }).subscribe(
       (response) => {
+        this.loadingService.hide();
         this.dataSourceNew.data.forEach((item: any) => (item.selected = false));
         console.log("RESPONSE :", response);
       },
       (error) => {
-        console.log("ERRO :", error);
+        this.loadingService.hide();
       }
     );
+  }
+
+  assignExerciceToAll(days) {
+    this.loadingService.show("Essa ação pode levar alguns minutos");
+    this.exerciceUserService
+      .assignToAllMembers({ userType: this.userType, days })
+      .subscribe(
+        (response) => {
+          this.loadingService.hide();
+        },
+        (error) => {
+          this.loadingService.hide();
+          console.log("ERRO :", error);
+        }
+      );
   }
 }

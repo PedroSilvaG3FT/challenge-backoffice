@@ -26,4 +26,8 @@ export class ExerciceUserService {
   assignToMembers(data) {
     return this.http.post(`${environment.api_url}/assignExercice`, data);
   }
+
+  assignToAllMembers(data) {
+    return this.http.post(`${environment.api_url}/assignExercice/all`, data);
+  }
 }
