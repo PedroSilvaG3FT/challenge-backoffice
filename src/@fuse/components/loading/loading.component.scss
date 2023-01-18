@@ -13,4 +13,8 @@
   flex-direction: column;
   justify-content: center;
   background: #0000007e;
+
+  > p {
+    color: #ffff;
+  }
 }

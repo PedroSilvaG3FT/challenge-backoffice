@@ -82,11 +82,13 @@ export class LoadingService {
       .subscribe(() => this.hide());
   }
 
-  show(): void {
+  show(message: string = ""): void {
+    if (message) this.setMessage(message);
     this._visible.next(true);
   }
 
   hide(): void {
     this._visible.next(false);
+    this.setMessage("");
   }
 }

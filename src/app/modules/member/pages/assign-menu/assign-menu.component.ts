@@ -34,17 +34,11 @@ export class AssignMenuComponent implements OnInit {
     private loadingService: LoadingService,
     private activatedRoute: ActivatedRoute,
     private menuUserService: MenuUserService
-  ) // private loadingService: FuseProgressBarService
-  {}
+  ) {}
 
   ngOnInit(): void {
     this.getMembers();
     this.getMenus();
-
-    this.loadingService.show();
-    setTimeout(() => {
-      this.loadingService.hide();
-    }, 5000);
   }
 
   getMembers() {
@@ -82,26 +76,38 @@ export class AssignMenuComponent implements OnInit {
   }
 
   assignMenu(members, menuId: number) {
+    this.loadingService.show("Atribuindo cardápios");
+
     this.menuUserService.assignMenu({ members, menuId }).subscribe(
-      (response) =>
-        this.snackBar.open(response.message, null, { duration: 3500 }),
-      () =>
+      (response) => {
+        this.loadingService.hide();
+        this.snackBar.open(response.message, null, { duration: 3500 });
+      },
+      () => {
+        this.loadingService.hide();
         this.snackBar.open("Ocorreu um erro ao atribuir cardapio", null, {
           duration: 3500,
-        })
+        });
+      }
     );
   }
 
   assignToAll(menuId: number) {
+    this.loadingService.show("Essa ação pode levar alguns minutos");
+
     this.menuUserService
       .assignMenuToAll({ menuId, userType: this.userType })
       .subscribe(
-        (response) =>
-          this.snackBar.open(response.message, null, { duration: 3500 }),
-        () =>
+        (response) => {
+          this.loadingService.hide();
+          this.snackBar.open(response.message, null, { duration: 3500 });
+        },
+        () => {
+          this.loadingService.hide();
           this.snackBar.open("Ocorreu um erro ao atribuir cardapio", null, {
             duration: 3500,
-          })
+          });
+        }
       );
   }
 }
